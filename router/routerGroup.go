@@ -14,6 +14,6 @@ func Init() {
 	engine.Use(limiter.Limiter())
 	api := engine.Group("/api")
 	RegisterUserRouter(api)
-	RegisterSchoolRouter(api)
+	RegisterInfoRouter(api)
 	engine.Run()
 }

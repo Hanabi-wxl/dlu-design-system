@@ -6,14 +6,14 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type SchoolServiceImpl struct {
+type CollegeServiceImpl struct {
 }
 
-func (s SchoolServiceImpl) GetSchoolList() ([]*model.School, error) {
-	schools, err := db.School.Find()
+func (c CollegeServiceImpl) GetCollegeList(size, num int) ([]*model.College, error) {
+	colleges, err := db.College.Limit(size).Offset(size * (num - 1)).Find()
 	if err != nil {
 		logrus.Error(err)
 		return nil, err
 	}
-	return schools, nil
+	return colleges, nil
 }

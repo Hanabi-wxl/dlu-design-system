@@ -5,12 +5,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetSchoolList(c *gin.Context) {
+func GetCollegeList(c *gin.Context) {
 	infoService := service.GetInfoService()
-	schools, err := infoService.GetSchoolList()
+	list, err := infoService.GetCollegeList(1, 1)
 	if err != nil {
 		c.JSON(500, err)
 	} else {
-		c.JSON(200, schools)
+		c.JSON(200, list)
 	}
 }

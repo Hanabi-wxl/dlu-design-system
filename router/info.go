@@ -5,9 +5,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterSchoolRouter(engin *gin.RouterGroup) {
+func RegisterInfoRouter(engin *gin.RouterGroup) {
 	info := engin.Group("/info")
 	{
-		info.GET("/schools", handler.InfoSchools)
+		info.GET("/schools", handler.GetSchoolList)
+		info.GET("/colleges/:size/:num", handler.GetCollegeList)
 	}
 }
