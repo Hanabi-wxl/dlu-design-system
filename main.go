@@ -91,8 +91,8 @@ func gormGen() {
 	// 将非默认字段名的字段定义为自动时间戳和软删除字段;
 	// 自动时间戳默认字段名为:`updated_at`、`created_at, 表字段数据类型为: INT 或 DATETIME
 	// 软删除默认字段名为:`deleted_at`, 表字段数据类型为: DATETIME
-	autoUpdateTimeField := gen.FieldGORMTag("update_time", "column:update_time;type:int unsigned;autoUpdateTime")
-	autoCreateTimeField := gen.FieldGORMTag("create_time", "column:create_time;type:int unsigned;autoCreateTime")
+	autoUpdateTimeField := gen.FieldGORMTag("updated_time", "column:updated_time;type:int unsigned;autoUpdateTime")
+	autoCreateTimeField := gen.FieldGORMTag("created_time", "column:created_time;type:int unsigned;autoCreateTime")
 	softDelField := gen.FieldGORMTag("is_delete", "column:is_delete;type:int unsigned;softDelete:flag")
 	softDeleteField := gen.FieldType("is_delete", "soft_delete.DeletedAt")
 	// 模型自定义选项组
@@ -106,6 +106,25 @@ func gormGen() {
 	college := g.GenerateModel("college", fieldOpts...)
 	major := g.GenerateModel("major", fieldOpts...)
 	class := g.GenerateModel("class", fieldOpts...)
-	g.ApplyBasic(school, college, major, class)
+	appoint := g.GenerateModel("appoint", fieldOpts...)
+	log := g.GenerateModel("log", fieldOpts...)
+	message := g.GenerateModel("message", fieldOpts...)
+	notice := g.GenerateModel("notice", fieldOpts...)
+	plan := g.GenerateModel("plan", fieldOpts...)
+	role := g.GenerateModel("role", fieldOpts...)
+	selection := g.GenerateModel("selection", fieldOpts...)
+	student := g.GenerateModel("student", fieldOpts...)
+	subject := g.GenerateModel("subject", fieldOpts...)
+	origin := g.GenerateModel("subject_origin", fieldOpts...)
+	progress := g.GenerateModel("subject_progress", fieldOpts...)
+	typee := g.GenerateModel("subject_type", fieldOpts...)
+	task := g.GenerateModel("task", fieldOpts...)
+	teacher := g.GenerateModel("teacher", fieldOpts...)
+	degree := g.GenerateModel("teacher_degree", fieldOpts...)
+	office := g.GenerateModel("teacher_office", fieldOpts...)
+	title := g.GenerateModel("teacher_title", fieldOpts...)
+
+	g.ApplyBasic(school, college, major, class, appoint, log, message, notice, plan, role, selection, student, subject, origin,
+		progress, typee, task, teacher, degree, office, title)
 	g.Execute()
 }
