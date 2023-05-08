@@ -1,0 +1,11 @@
+[Mysql]
+Db = "mysql"
+DbHost = "123.56.105.80"
+DbPort = "3306"
+DbUser = "design-system"
+DbPassWord = "NbW6ystkMakeLzGC"
+DbName = "design-system"
+
+[Redis]
+RdAddr = "123.56.105.80:6379"
+RdPassWord = "NbW6ystkMakeLzGC"
