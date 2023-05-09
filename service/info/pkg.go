@@ -1,15 +1,18 @@
 package service
 
+var infoService InfoService
+
 type InfoService struct {
 	SchoolService
 	CollegeService
 }
 
-func GetInfoService() InfoService {
-	var schoolService SchoolServiceImpl
-	var collegeService CollegeServiceImpl
-	infoService := InfoService{}
-	infoService.SchoolService = schoolService
-	infoService.CollegeService = collegeService
-	return infoService
+func GetInfoService() func() InfoService {
+	return func() InfoService {
+		schoolService := new(SchoolServiceImpl)
+		collegeService := new(CollegeServiceImpl)
+		infoService.SchoolService = schoolService
+		infoService.CollegeService = collegeService
+		return infoService
+	}
 }

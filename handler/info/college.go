@@ -7,18 +7,19 @@ import (
 	"net/http"
 )
 
-type GetCollegeListReq struct {
+type PageRequest struct {
 	Size int
 	Num  int
 }
 
 func GetCollegeList(c *gin.Context) {
-	var getCollegeListReq GetCollegeListReq
-	if err := c.ShouldBindUri(&getCollegeListReq); err != nil {
+	var page PageRequest
+	if err := c.ShouldBindUri(&page); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
+		return
 	}
 	infoService := service.GetInfoService()
-	list, err := infoService.GetCollegeList(getCollegeListReq.Size, getCollegeListReq.Num)
+	list, err := infoService().GetCollegeList(page.Size, page.Num)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {

@@ -1,18 +1,21 @@
 package service
 
+var userService UserService
+
 type UserService struct {
 	UserInfoService
 	LoginService
 	RoleService
 }
 
-func GetUserService() UserService {
-	var userInfoService UserInfoServiceImpl
-	var roleService RoleServiceImpl
-	var loginService LoginServiceImpl
-	userService := UserService{}
-	userService.UserInfoService = userInfoService
-	userService.RoleService = roleService
-	userService.LoginService = loginService
-	return userService
+func GetUserService() func() UserService {
+	return func() UserService {
+		userInfoService := new(UserInfoServiceImpl)
+		loginService := new(LoginServiceImpl)
+		roleService := new(RoleServiceImpl)
+		userService.UserInfoService = userInfoService
+		userService.RoleService = roleService
+		userService.LoginService = loginService
+		return userService
+	}
 }
