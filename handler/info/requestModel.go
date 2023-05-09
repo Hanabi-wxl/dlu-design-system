@@ -7,5 +7,5 @@ type PageRequest struct {
 }
 
 type IdRequest struct {
-	Id string
+	Id string `uri:"id"`
 }
