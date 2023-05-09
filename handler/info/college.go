@@ -12,6 +12,10 @@ type PageRequest struct {
 	Num  int
 }
 
+type IdRequest struct {
+	id int
+}
+
 func GetCollegeList(c *gin.Context) {
 	var page PageRequest
 	if err := c.ShouldBindUri(&page); err != nil {
@@ -25,4 +29,20 @@ func GetCollegeList(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, result.NewOkResult(list))
 	}
+}
+
+func AddCollege(c *gin.Context) {
+
+}
+
+func DeleteCollege(c *gin.Context) {
+
+}
+
+func UpdateCollege(c *gin.Context) {
+
+}
+
+func GetCollege(c *gin.Context) {
+
 }

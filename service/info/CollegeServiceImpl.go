@@ -18,3 +18,23 @@ func (c CollegeServiceImpl) GetCollegeList(size, num int) ([]*model.College, *er
 	}
 	return colleges, nil
 }
+
+func (c CollegeServiceImpl) AddCollege() ([]*model.College, *errno.Errno) {
+
+	return nil, nil
+}
+
+func (c CollegeServiceImpl) DeleteCollege() ([]*model.College, *errno.Errno) {
+
+	return nil, nil
+}
+
+func (c CollegeServiceImpl) UpdateCollege() ([]*model.College, *errno.Errno) {
+
+	return nil, nil
+}
+
+func (c CollegeServiceImpl) GetCollege() ([]*model.College, *errno.Errno) {
+
+	return nil, nil
+}
