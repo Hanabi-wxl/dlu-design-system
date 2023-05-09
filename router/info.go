@@ -8,7 +8,7 @@ import (
 func RegisterInfoRouter(engin *gin.RouterGroup) {
 	info := engin.Group("/info")
 	{
-		info.GET("/schools", handler.GetSchoolList)
+		info.GET("/schools/:size/:num", handler.GetSchoolList)
 		info.POST("/school", handler.AddSchool)
 		info.DELETE("/school/:id", handler.DeleteSchool)
 		info.PUT("/school/:id", handler.UpdateSchool)

@@ -113,6 +113,6 @@ func GetSchool(c *gin.Context) {
 	if err2 != nil {
 		c.JSON(http.StatusBadRequest, err2)
 	} else {
-		c.JSON(http.StatusOK, result.NewOkResult(*school))
+		c.JSON(http.StatusOK, result.NewOkResult(school))
 	}
 }

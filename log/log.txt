@@ -327,3 +327,117 @@ time="2023/05/09 22:45:27" level=info msg="等待毫秒0 10 10   /api/info/schoo
 time="2023/05/09 22:45:28" level=info msg="D:/golang_code/dlu-design-system/dal/db/school.gen.go:289 SLOW SQL >= 1ms\n[482.423ms] [rows:1] SELECT * FROM `school` WHERE `school`.`id` = 22 AND `school`.`is_delete` = 0 LIMIT 1"
 time="2023/05/09 22:45:34" level=info msg="等待毫秒0 10 10   /api/info/school/:id"
 time="2023/05/09 22:45:35" level=info msg="D:/golang_code/dlu-design-system/dal/db/school.gen.go:390 SLOW SQL >= 1ms\n[522.219ms] [rows:1] UPDATE `school` SET `is_delete`=1 WHERE `school`.`id` = 22 AND `school`.`is_delete` = 0"
+[GIN-debug] GET    /api/user/login/role      --> github.com/Hanabi-wxl/dlu-design-system/handler/user.Role (4 handlers)
+[GIN-debug] POST   /api/user/manage          --> github.com/Hanabi-wxl/dlu-design-system/handler/user.SaveUser (4 handlers)
+[GIN-debug] GET    /api/info/schools         --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetSchoolList (4 handlers)
+[GIN-debug] POST   /api/info/school          --> github.com/Hanabi-wxl/dlu-design-system/handler/info.AddSchool (4 handlers)
+[GIN-debug] DELETE /api/info/school/:id      --> github.com/Hanabi-wxl/dlu-design-system/handler/info.DeleteSchool (4 handlers)
+[GIN-debug] PUT    /api/info/school/:id      --> github.com/Hanabi-wxl/dlu-design-system/handler/info.UpdateSchool (4 handlers)
+[GIN-debug] GET    /api/info/school/:id      --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetSchool (4 handlers)
+[GIN-debug] GET    /api/info/colleges/:size/:num --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetCollegeList (4 handlers)
+[GIN-debug] POST   /api/info/college         --> github.com/Hanabi-wxl/dlu-design-system/handler/info.AddCollege (4 handlers)
+[GIN-debug] DELETE /api/info/college/:id     --> github.com/Hanabi-wxl/dlu-design-system/handler/info.DeleteCollege (4 handlers)
+[GIN-debug] PUT    /api/info/college/:id     --> github.com/Hanabi-wxl/dlu-design-system/handler/info.UpdateCollege (4 handlers)
+[GIN-debug] GET    /api/info/college/:id     --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetCollege (4 handlers)
+[GIN-debug] GET    /api/info/majors/:size/:num --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetMajorList (4 handlers)
+[GIN-debug] POST   /api/info/major           --> github.com/Hanabi-wxl/dlu-design-system/handler/info.AddMajor (4 handlers)
+[GIN-debug] DELETE /api/info/major/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.DeleteMajor (4 handlers)
+[GIN-debug] PUT    /api/info/major/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.UpdateMajor (4 handlers)
+[GIN-debug] GET    /api/info/major/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetMajor (4 handlers)
+[GIN-debug] GET    /api/info/classes/:size/:num --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetClassList (4 handlers)
+[GIN-debug] POST   /api/info/class           --> github.com/Hanabi-wxl/dlu-design-system/handler/info.AddClass (4 handlers)
+[GIN-debug] DELETE /api/info/class/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.DeleteClass (4 handlers)
+[GIN-debug] PUT    /api/info/class/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.UpdateClass (4 handlers)
+[GIN-debug] GET    /api/info/class/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetClass (4 handlers)
+[GIN-debug] GET    /api/info/titles          --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetTitles (4 handlers)
+[GIN-debug] GET    /api/info/title/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetTitle (4 handlers)
+[GIN-debug] GET    /api/info/degrees         --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetDegrees (4 handlers)
+[GIN-debug] GET    /api/info/degree/:id      --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetDegree (4 handlers)
+[GIN-debug] GET    /api/info/sections        --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetSections (4 handlers)
+[GIN-debug] GET    /api/info/section/:id     --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetSection (4 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Environment variable PORT is undefined. Using port :8080 by default
+[GIN-debug] Listening and serving HTTP on :8080
+time="2023/05/09 22:53:05" level=info msg="等待毫秒0 10 10   "
+[GIN-debug] GET    /api/user/login/role      --> github.com/Hanabi-wxl/dlu-design-system/handler/user.Role (4 handlers)
+[GIN-debug] POST   /api/user/manage          --> github.com/Hanabi-wxl/dlu-design-system/handler/user.SaveUser (4 handlers)
+[GIN-debug] GET    /api/info/schools/:size/:num --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetSchoolList (4 handlers)
+[GIN-debug] POST   /api/info/school          --> github.com/Hanabi-wxl/dlu-design-system/handler/info.AddSchool (4 handlers)
+[GIN-debug] DELETE /api/info/school/:id      --> github.com/Hanabi-wxl/dlu-design-system/handler/info.DeleteSchool (4 handlers)
+[GIN-debug] PUT    /api/info/school/:id      --> github.com/Hanabi-wxl/dlu-design-system/handler/info.UpdateSchool (4 handlers)
+[GIN-debug] GET    /api/info/school/:id      --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetSchool (4 handlers)
+[GIN-debug] GET    /api/info/colleges/:size/:num --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetCollegeList (4 handlers)
+[GIN-debug] POST   /api/info/college         --> github.com/Hanabi-wxl/dlu-design-system/handler/info.AddCollege (4 handlers)
+[GIN-debug] DELETE /api/info/college/:id     --> github.com/Hanabi-wxl/dlu-design-system/handler/info.DeleteCollege (4 handlers)
+[GIN-debug] PUT    /api/info/college/:id     --> github.com/Hanabi-wxl/dlu-design-system/handler/info.UpdateCollege (4 handlers)
+[GIN-debug] GET    /api/info/college/:id     --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetCollege (4 handlers)
+[GIN-debug] GET    /api/info/majors/:size/:num --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetMajorList (4 handlers)
+[GIN-debug] POST   /api/info/major           --> github.com/Hanabi-wxl/dlu-design-system/handler/info.AddMajor (4 handlers)
+[GIN-debug] DELETE /api/info/major/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.DeleteMajor (4 handlers)
+[GIN-debug] PUT    /api/info/major/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.UpdateMajor (4 handlers)
+[GIN-debug] GET    /api/info/major/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetMajor (4 handlers)
+[GIN-debug] GET    /api/info/classes/:size/:num --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetClassList (4 handlers)
+[GIN-debug] POST   /api/info/class           --> github.com/Hanabi-wxl/dlu-design-system/handler/info.AddClass (4 handlers)
+[GIN-debug] DELETE /api/info/class/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.DeleteClass (4 handlers)
+[GIN-debug] PUT    /api/info/class/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.UpdateClass (4 handlers)
+[GIN-debug] GET    /api/info/class/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetClass (4 handlers)
+[GIN-debug] GET    /api/info/titles          --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetTitles (4 handlers)
+[GIN-debug] GET    /api/info/title/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetTitle (4 handlers)
+[GIN-debug] GET    /api/info/degrees         --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetDegrees (4 handlers)
+[GIN-debug] GET    /api/info/degree/:id      --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetDegree (4 handlers)
+[GIN-debug] GET    /api/info/sections        --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetSections (4 handlers)
+[GIN-debug] GET    /api/info/section/:id     --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetSection (4 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Environment variable PORT is undefined. Using port :8080 by default
+[GIN-debug] Listening and serving HTTP on :8080
+time="2023/05/09 22:54:47" level=info msg="等待毫秒0 10 10   "
+time="2023/05/09 22:54:47" level=info msg="等待毫秒0 10 10   "
+time="2023/05/09 22:54:53" level=info msg="等待毫秒0 10 10   /api/info/schools/:size/:num"
+time="2023/05/09 22:54:53" level=info msg="D:/golang_code/dlu-design-system/dal/db/school.gen.go:305 SLOW SQL >= 1ms\n[200.210ms] [rows:1] SELECT * FROM `school` WHERE `school`.`is_delete` = 0 LIMIT 2"
+time="2023/05/09 22:55:02" level=info msg="等待毫秒0 10 10   /api/info/school"
+time="2023/05/09 22:55:02" level=info msg="D:/golang_code/dlu-design-system/dal/db/school.gen.go:264 SLOW SQL >= 1ms\n[319.658ms] [rows:1] INSERT INTO `school` (`name`,`address`,`is_delete`,`id`) VALUES ('大连大学','大连','0',25)"
+time="2023/05/09 22:55:06" level=info msg="等待毫秒0 10 10   /api/info/school"
+time="2023/05/09 22:55:06" level=info msg="D:/golang_code/dlu-design-system/dal/db/school.gen.go:264 SLOW SQL >= 1ms\n[386.129ms] [rows:1] INSERT INTO `school` (`name`,`address`,`is_delete`,`id`) VALUES ('大连大学','大连','0',26)"
+time="2023/05/09 22:55:09" level=info msg="等待毫秒0 10 10   /api/info/school"
+time="2023/05/09 22:55:09" level=info msg="D:/golang_code/dlu-design-system/dal/db/school.gen.go:264 SLOW SQL >= 1ms\n[376.242ms] [rows:1] INSERT INTO `school` (`name`,`address`,`is_delete`,`id`) VALUES ('大连大学','大连','0',27)"
+time="2023/05/09 22:55:12" level=info msg="等待毫秒0 10 10   /api/info/schools/:size/:num"
+time="2023/05/09 22:55:12" level=info msg="D:/golang_code/dlu-design-system/dal/db/school.gen.go:305 SLOW SQL >= 1ms\n[178.303ms] [rows:2] SELECT * FROM `school` WHERE `school`.`is_delete` = 0 LIMIT 2"
+[GIN-debug] GET    /api/user/login/role      --> github.com/Hanabi-wxl/dlu-design-system/handler/user.Role (4 handlers)
+[GIN-debug] POST   /api/user/manage          --> github.com/Hanabi-wxl/dlu-design-system/handler/user.SaveUser (4 handlers)
+[GIN-debug] GET    /api/info/schools/:size/:num --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetSchoolList (4 handlers)
+[GIN-debug] POST   /api/info/school          --> github.com/Hanabi-wxl/dlu-design-system/handler/info.AddSchool (4 handlers)
+[GIN-debug] DELETE /api/info/school/:id      --> github.com/Hanabi-wxl/dlu-design-system/handler/info.DeleteSchool (4 handlers)
+[GIN-debug] PUT    /api/info/school/:id      --> github.com/Hanabi-wxl/dlu-design-system/handler/info.UpdateSchool (4 handlers)
+[GIN-debug] GET    /api/info/school/:id      --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetSchool (4 handlers)
+[GIN-debug] GET    /api/info/colleges/:size/:num --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetCollegeList (4 handlers)
+[GIN-debug] POST   /api/info/college         --> github.com/Hanabi-wxl/dlu-design-system/handler/info.AddCollege (4 handlers)
+[GIN-debug] DELETE /api/info/college/:id     --> github.com/Hanabi-wxl/dlu-design-system/handler/info.DeleteCollege (4 handlers)
+[GIN-debug] PUT    /api/info/college/:id     --> github.com/Hanabi-wxl/dlu-design-system/handler/info.UpdateCollege (4 handlers)
+[GIN-debug] GET    /api/info/college/:id     --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetCollege (4 handlers)
+[GIN-debug] GET    /api/info/majors/:size/:num --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetMajorList (4 handlers)
+[GIN-debug] POST   /api/info/major           --> github.com/Hanabi-wxl/dlu-design-system/handler/info.AddMajor (4 handlers)
+[GIN-debug] DELETE /api/info/major/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.DeleteMajor (4 handlers)
+[GIN-debug] PUT    /api/info/major/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.UpdateMajor (4 handlers)
+[GIN-debug] GET    /api/info/major/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetMajor (4 handlers)
+[GIN-debug] GET    /api/info/classes/:size/:num --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetClassList (4 handlers)
+[GIN-debug] POST   /api/info/class           --> github.com/Hanabi-wxl/dlu-design-system/handler/info.AddClass (4 handlers)
+[GIN-debug] DELETE /api/info/class/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.DeleteClass (4 handlers)
+[GIN-debug] PUT    /api/info/class/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.UpdateClass (4 handlers)
+[GIN-debug] GET    /api/info/class/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetClass (4 handlers)
+[GIN-debug] GET    /api/info/titles          --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetTitles (4 handlers)
+[GIN-debug] GET    /api/info/title/:id       --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetTitle (4 handlers)
+[GIN-debug] GET    /api/info/degrees         --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetDegrees (4 handlers)
+[GIN-debug] GET    /api/info/degree/:id      --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetDegree (4 handlers)
+[GIN-debug] GET    /api/info/sections        --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetSections (4 handlers)
+[GIN-debug] GET    /api/info/section/:id     --> github.com/Hanabi-wxl/dlu-design-system/handler/info.GetSection (4 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Environment variable PORT is undefined. Using port :8080 by default
+[GIN-debug] Listening and serving HTTP on :8080
+time="2023/05/09 22:55:46" level=info msg="等待毫秒0 10 10   /api/info/school/:id"
+time="2023/05/09 22:55:46" level=info msg="D:/golang_code/dlu-design-system/dal/db/school.gen.go:289 record not found\n[175.227ms] [rows:0] SELECT * FROM `school` WHERE `school`.`id` = 22 AND `school`.`is_delete` = 0 LIMIT 1"
+time="2023/05/09 22:55:46" level=error msg="record not found"
+time="2023/05/09 22:55:51" level=info msg="等待毫秒0 10 10   /api/info/school/:id"
+time="2023/05/09 22:55:51" level=info msg="D:/golang_code/dlu-design-system/dal/db/school.gen.go:289 SLOW SQL >= 1ms\n[174.335ms] [rows:1] SELECT * FROM `school` WHERE `school`.`id` = 25 AND `school`.`is_delete` = 0 LIMIT 1"
