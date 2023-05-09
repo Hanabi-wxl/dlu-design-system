@@ -15,8 +15,8 @@ type Teacher struct {
 	Name      string                `gorm:"column:name;type:varchar(16);not null" json:"name"`                   // 姓名
 	Password  string                `gorm:"column:password;type:varchar(128);not null" json:"password"`          // 密码
 	RoleID    *int64                `gorm:"column:role_id;type:int(11)" json:"role_id"`                          // 权限
-	Phone     string                `gorm:"column:phone;type:varchar(11);not null" json:"phone"`                 // 电话
-	Email     string                `gorm:"column:email;type:varchar(64);not null" json:"email"`                 // 邮箱
+	Phone     *string               `gorm:"column:phone;type:varchar(11)" json:"phone"`                          // 电话
+	Email     *string               `gorm:"column:email;type:varchar(64)" json:"email"`                          // 邮箱
 	CollegeID int64                 `gorm:"column:college_id;type:int(11);not null" json:"college_id"`           // 学院
 	MajorID   int64                 `gorm:"column:major_id;type:int(11);not null" json:"major_id"`               // 专业
 	TitleID   int64                 `gorm:"column:title_id;type:int(11);not null" json:"title_id"`               // 职称

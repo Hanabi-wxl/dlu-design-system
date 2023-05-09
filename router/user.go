@@ -11,4 +11,8 @@ func RegisterUserRouter(engin *gin.RouterGroup) {
 	{
 		loginGroup.GET("/role", handler.Role)
 	}
+	manageGroup := user.Group("/manage")
+	{
+		manageGroup.POST("", handler.SaveUser)
+	}
 }

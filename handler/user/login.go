@@ -7,5 +7,5 @@ import (
 
 func Role(c *gin.Context) {
 	userService := service.GetUserService()
-	userService.CheckRole()
+	userService().CheckRole()
 }

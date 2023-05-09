@@ -1,13 +1,9 @@
 package service
 
 import (
-	"crypto/hmac"
-	"crypto/sha256"
-	"encoding/hex"
-	"fmt"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/consts"
 	"github.com/dgrijalva/jwt-go"
-	"strconv"
+	"golang.org/x/crypto/bcrypt"
 	"time"
 )
 
@@ -17,27 +13,24 @@ type LoginServiceImpl struct {
 func (l LoginServiceImpl) CheckRole() {
 }
 
-type Claims struct {
+type claims struct {
 	UserId int64
 	RoleId int8
 	jwt.StandardClaims
 }
 
-// GenerateToken 根据username生成一个token
-func GenerateToken(username string) string {
+// generateToken 根据username生成一个token
+func generateToken(username string) string {
 	// todo 根据用户名查用户
 
-	// todo 生成token
-	token := NewToken()
+	token := newToken()
 	return token
 }
 
-// NewToken 根据信息创建token
-func NewToken() string {
+// newToken 根据信息创建token
+func newToken() string {
 	expiresTime := time.Now().Unix() + consts.DefaultExpiresTime
-	fmt.Printf("expiresTime: %v\n", expiresTime)
-	fmt.Printf("id: %v\n", strconv.FormatInt(10, 10))
-	claims := Claims{
+	userClaims := claims{
 		UserId: 1,
 		RoleId: 2,
 		StandardClaims: jwt.StandardClaims{
@@ -50,10 +43,9 @@ func NewToken() string {
 		},
 	}
 	var jwtSecret = []byte(consts.JwtSecret)
-	tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, userClaims)
 	if token, err := tokenClaims.SignedString(jwtSecret); err == nil {
 		token = "Bearer " + token
-		println("generate token success!\n")
 		return token
 	} else {
 		println("generate token fail\n")
@@ -61,10 +53,8 @@ func NewToken() string {
 	}
 }
 
-// EnCoder 密码加密
-func EnCoder(password string) string {
-	h := hmac.New(sha256.New, []byte(password))
-	sha := hex.EncodeToString(h.Sum(nil))
-	fmt.Println("Result: " + sha)
-	return sha
+// CheckPassword 检验密码
+func checkPassword(passwordInput, passwordSave string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(passwordInput), []byte(passwordSave))
+	return err == nil
 }
