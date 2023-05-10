@@ -7,5 +7,5 @@ import (
 
 type TitleService interface {
 	GetTitles() ([]*model.TeacherTitle, *errno.Errno)
-	GetTitle() ([]*model.TeacherTitle, *errno.Errno)
+	GetTitle(id int64) (*model.TeacherTitle, *errno.Errno)
 }

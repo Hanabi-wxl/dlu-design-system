@@ -7,5 +7,5 @@ import (
 
 type SectionService interface {
 	GetSections() ([]*model.TeacherOffice, *errno.Errno)
-	GetSection() ([]*model.TeacherOffice, *errno.Errno)
+	GetSection(id int64) (*model.TeacherOffice, *errno.Errno)
 }

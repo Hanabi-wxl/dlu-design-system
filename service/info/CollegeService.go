@@ -7,8 +7,8 @@ import (
 
 type CollegeService interface {
 	GetCollegeList(size, num int) ([]*model.College, *errno.Errno)
-	AddCollege() ([]*model.College, *errno.Errno)
-	DeleteCollege() ([]*model.College, *errno.Errno)
-	UpdateCollege() ([]*model.College, *errno.Errno)
-	GetCollege() ([]*model.College, *errno.Errno)
+	AddCollege(class *model.College) *errno.Errno
+	DeleteCollege(id int64) *errno.Errno
+	UpdateCollege(college *model.College) *errno.Errno
+	GetCollege(id int64) (*model.College, *errno.Errno)
 }

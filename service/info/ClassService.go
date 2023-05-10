@@ -7,8 +7,8 @@ import (
 
 type ClassService interface {
 	GetClassList(size, num int) ([]*model.Class, *errno.Errno)
-	AddClass() ([]*model.Class, *errno.Errno)
-	DeleteClass() ([]*model.Class, *errno.Errno)
-	UpdateClass() ([]*model.Class, *errno.Errno)
-	GetClass() ([]*model.Class, *errno.Errno)
+	AddClass(class *model.Class) *errno.Errno
+	DeleteClass(id int64) *errno.Errno
+	UpdateClass(class *model.Class) *errno.Errno
+	GetClass(id int64) (*model.Class, *errno.Errno)
 }
