@@ -7,8 +7,8 @@ import (
 
 type SchoolService interface {
 	GetSchoolList(size, num int) ([]*model.School, *errno.Errno)
-	AddSchool() ([]*model.School, *errno.Errno)
-	DeleteSchool() ([]*model.School, *errno.Errno)
-	UpdateSchool() ([]*model.School, *errno.Errno)
-	GetSchool() ([]*model.School, *errno.Errno)
+	AddSchool(school *model.School) *errno.Errno
+	DeleteSchool(id int64) *errno.Errno
+	UpdateSchool(school *model.School) *errno.Errno
+	GetSchool(id int64) (*model.School, *errno.Errno)
 }

@@ -7,15 +7,6 @@ import (
 	"net/http"
 )
 
-type PageRequest struct {
-	Size int
-	Num  int
-}
-
-type IdRequest struct {
-	id int
-}
-
 func GetCollegeList(c *gin.Context) {
 	var page PageRequest
 	if err := c.ShouldBindUri(&page); err != nil {

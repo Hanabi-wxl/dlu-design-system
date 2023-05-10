@@ -34,7 +34,7 @@ func NewOkResult(data interface{}) Result {
 
 func NewFailedResult(msg string) Result {
 	return Result{
-		errno.DefaultErrCode, errno.DefaultErrMsg, nil,
+		errno.DefaultErrCode, msg, nil,
 	}
 }
 

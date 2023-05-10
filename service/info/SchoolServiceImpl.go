@@ -19,22 +19,38 @@ func (c SchoolServiceImpl) GetSchoolList(size, num int) ([]*model.School, *errno
 	return schools, nil
 }
 
-func (c SchoolServiceImpl) AddSchool() ([]*model.School, *errno.Errno) {
-
-	return nil, nil
+func (c SchoolServiceImpl) AddSchool(school *model.School) *errno.Errno {
+	err := db.School.Create(school)
+	if err != nil {
+		logrus.Error(err)
+		return errno.NewErrno(errno.DbErrorCode, err.Error())
+	}
+	return nil
 }
 
-func (c SchoolServiceImpl) DeleteSchool() ([]*model.School, *errno.Errno) {
-
-	return nil, nil
+func (c SchoolServiceImpl) DeleteSchool(id int64) *errno.Errno {
+	_, err := db.School.Where(db.School.ID.Eq(id)).Delete()
+	if err != nil {
+		logrus.Error(err)
+		return errno.NewErrno(errno.DbErrorCode, err.Error())
+	}
+	return nil
 }
 
-func (c SchoolServiceImpl) UpdateSchool() ([]*model.School, *errno.Errno) {
-
-	return nil, nil
+func (c SchoolServiceImpl) UpdateSchool(school *model.School) *errno.Errno {
+	err := db.School.Save(school)
+	if err != nil {
+		logrus.Error(err)
+		return errno.NewErrno(errno.DbErrorCode, err.Error())
+	}
+	return nil
 }
 
-func (c SchoolServiceImpl) GetSchool() ([]*model.School, *errno.Errno) {
-
-	return nil, nil
+func (c SchoolServiceImpl) GetSchool(id int64) (*model.School, *errno.Errno) {
+	school, err := db.School.Where(db.School.ID.Eq(id)).Take()
+	if err != nil {
+		logrus.Error(err)
+		return nil, errno.NewErrno(errno.DbErrorCode, err.Error())
+	}
+	return school, nil
 }

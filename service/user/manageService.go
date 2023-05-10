@@ -5,5 +5,9 @@ import (
 )
 
 type ManageService interface {
-	SaveUser(s UserRequest) *errno.Errno
+	// SaveUser
+	// @Description: 添加用户 学生或老师
+	// @param userReq 内容
+	// @return *errno.Errno 错误
+	SaveUser(userReq UserRequest) *errno.Errno
 }
