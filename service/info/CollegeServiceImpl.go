@@ -19,22 +19,38 @@ func (c CollegeServiceImpl) GetCollegeList(size, num int) ([]*model.College, *er
 	return colleges, nil
 }
 
-func (c CollegeServiceImpl) AddCollege() ([]*model.College, *errno.Errno) {
-
-	return nil, nil
+func (c CollegeServiceImpl) AddCollege(college *model.College) *errno.Errno {
+	err := db.College.Create(college)
+	if err != nil {
+		logrus.Error(err)
+		return errno.NewErrno(errno.DbErrorCode, err.Error())
+	}
+	return nil
 }
 
-func (c CollegeServiceImpl) DeleteCollege() ([]*model.College, *errno.Errno) {
-
-	return nil, nil
+func (c CollegeServiceImpl) DeleteCollege(id int64) *errno.Errno {
+	_, err := db.College.Where(db.College.ID.Eq(id)).Delete()
+	if err != nil {
+		logrus.Error(err)
+		return errno.NewErrno(errno.DbErrorCode, err.Error())
+	}
+	return nil
 }
 
-func (c CollegeServiceImpl) UpdateCollege() ([]*model.College, *errno.Errno) {
-
-	return nil, nil
+func (c CollegeServiceImpl) UpdateCollege(college *model.College) *errno.Errno {
+	err := db.College.Save(college)
+	if err != nil {
+		logrus.Error(err)
+		return errno.NewErrno(errno.DbErrorCode, err.Error())
+	}
+	return nil
 }
 
-func (c CollegeServiceImpl) GetCollege() ([]*model.College, *errno.Errno) {
-
-	return nil, nil
+func (c CollegeServiceImpl) GetCollege(id int64) (*model.College, *errno.Errno) {
+	college, err := db.College.Where(db.College.ID.Eq(id)).Take()
+	if err != nil {
+		logrus.Error(err)
+		return nil, errno.NewErrno(errno.DbErrorCode, err.Error())
+	}
+	return college, nil
 }

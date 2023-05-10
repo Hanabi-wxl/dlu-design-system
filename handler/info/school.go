@@ -45,12 +45,11 @@ func AddSchool(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, result.Ok())
 	}
-
 }
 
 // DeleteSchool
 //
-//	@Description: 删除学校信息 参数:IdRequest
+//	@Description: 删除学校信息 参数: IdRequest
 //	@param c
 func DeleteSchool(c *gin.Context) {
 	var idRequest IdRequest
@@ -70,7 +69,6 @@ func DeleteSchool(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, result.Ok())
 	}
-
 }
 
 // UpdateSchool
@@ -90,12 +88,11 @@ func UpdateSchool(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, result.Ok())
 	}
-
 }
 
 // GetSchool
 //
-//	@Description: 根据id查询单个学校信息 参数:IdRequest
+//	@Description: 根据id查询单个学校信息 参数: IdRequest
 //	@param c
 func GetSchool(c *gin.Context) {
 	var idRequest IdRequest

@@ -7,5 +7,5 @@ import (
 
 type DegreeService interface {
 	GetDegrees() ([]*model.TeacherDegree, *errno.Errno)
-	GetDegree() ([]*model.TeacherDegree, *errno.Errno)
+	GetDegree(id int64) (*model.TeacherDegree, *errno.Errno)
 }

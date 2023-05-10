@@ -7,8 +7,8 @@ import (
 
 type MajorService interface {
 	GetMajorList(size, num int) ([]*model.Major, *errno.Errno)
-	AddMajor() ([]*model.Major, *errno.Errno)
-	DeleteMajor() ([]*model.Major, *errno.Errno)
-	UpdateMajor() ([]*model.Major, *errno.Errno)
-	GetMajor() ([]*model.Major, *errno.Errno)
+	AddMajor(major *model.Major) *errno.Errno
+	DeleteMajor(id int64) *errno.Errno
+	UpdateMajor(major *model.Major) *errno.Errno
+	GetMajor(id int64) (*model.Major, *errno.Errno)
 }
