@@ -25,7 +25,7 @@ func RegisterUserRouter(engin *gin.RouterGroup) {
 		manageGroup.PUT("", handler.UpdateUser)
 		manageGroup.DELETE("/:id/:isStu", handler.DeleteUser)
 	}
-	infoGroup := user.Group("info")
+	infoGroup := user.Group("/info")
 	{
 		infoGroup.GET("/:id/:isStu", handler.GetUserById)
 		infoGroup.GET("/number/:number/:isStu", handler.GetUserByNumber)
