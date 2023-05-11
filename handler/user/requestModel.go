@@ -9,6 +9,10 @@ type IdRequest struct {
 	Id int64 `uri:"id"`
 }
 
+type RoleIdRequest struct {
+	RoleId int64 `uri:"roleId"`
+}
+
 type NumberRequest struct {
 	Number string `uri:"number"`
 }

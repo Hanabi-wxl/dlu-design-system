@@ -19,6 +19,8 @@ var (
 	UpdateTeacherRoleErr = &Errno{UpdateTeacherRoleErrCode, UpdateTeacherRoleErrMsg}
 	DeleteUserErr        = &Errno{DeleteUserErrCode, DeleteUserErrMsg}
 	UpdateUserErr        = &Errno{UpdateUserErrCode, UpdateUserErrMsg}
+	DeleteRoleErr        = &Errno{DeleteRoleErrCode, DeleteRoleErrMsg}
+	UpdateRoleErr        = &Errno{UpdateRoleErrCode, UpdateRoleErrMsg}
 )
 
 const (
@@ -43,6 +45,10 @@ const (
 	DeleteUserErrMsg         = "删除用户失败"
 	UpdateUserErrCode        = 300010
 	UpdateUserErrMsg         = "更新用户失败"
+	DeleteRoleErrCode        = 30011
+	DeleteRoleErrMsg         = "删除角色失败"
+	UpdateRoleErrCode        = 30012
+	UpdateRoleErrMsg         = "更新角色失败"
 )
 
 const (

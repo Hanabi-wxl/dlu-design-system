@@ -9,7 +9,7 @@ type ManageService interface {
 	// @Description: 添加用户 学生或老师
 	// @param userReq 内容
 	// @return *errno.Errno 错误
-	SaveUser(userReq UserRequest) *errno.Errno
+	SaveUser(userReq *UserRequest) *errno.Errno
 
 	// ResetPassword
 	// @Description: 重置用户密码
@@ -29,7 +29,7 @@ type ManageService interface {
 	// @param id 用户id
 	// @param isStu 1学生 2教师
 	// @return *errno.Errno
-	UpdateUser(userReq UserRequest) *errno.Errno
+	UpdateUser(userReq *UserRequest) *errno.Errno
 
 	// DeleteUser
 	// @Description: 删除用户
