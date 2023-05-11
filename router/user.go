@@ -30,4 +30,12 @@ func RegisterUserRouter(engin *gin.RouterGroup) {
 	user.POST("/role", jwt.Auth(consts.SchoolPermission), handler.AddRole)
 	user.PUT("/role", jwt.Auth(consts.SchoolPermission), handler.UpdateRole)
 	user.DELETE("/role/:roleId", jwt.Auth(consts.SchoolPermission), handler.DeleteRole)
+
+	infoGroup := user.Group("/info")
+	{
+		infoGroup.GET("/:id/:isStu", handler.GetUserById)
+		infoGroup.GET("/number/:number/:isStu", handler.GetUserByNumber)
+		infoGroup.GET("/major/:majorId/:isStu/:size/:num", handler.GetUsersByMajor)
+		infoGroup.GET("/college/:collegeId/:isStu/:size/:num", handler.GetUsersByCollege)
+	}
 }

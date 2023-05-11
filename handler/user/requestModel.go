@@ -15,6 +15,7 @@ type RoleIdRequest struct {
 
 type NumberRequest struct {
 	Number string `uri:"number"`
+	IsStu  int8   `uri:"isStu"`
 }
 
 type UpdateRoleRequest struct {
@@ -25,4 +26,18 @@ type UpdateRoleRequest struct {
 type UserLoginRequest struct {
 	Number   string `json:"number"`
 	Password string `json:"password"`
+}
+
+type CollegeIdRequest struct {
+	CollegeId int  `uri:"collegeId"`
+	IsStu     int8 `uri:"isStu"`
+	Size      int  `uri:"size"`
+	Num       int  `uri:"num"`
+}
+
+type MajorIdRequest struct {
+	MajorId int  `uri:"majorId"`
+	IsStu   int8 `uri:"isStu"`
+	Size    int  `uri:"size"`
+	Num     int  `uri:"num"`
 }
