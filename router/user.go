@@ -12,12 +12,17 @@ func RegisterUserRouter(engin *gin.RouterGroup) {
 	loginGroup := user.Group("/login")
 	{
 		loginGroup.GET("/role/:number", handler.CheckLoginRole)
-		loginGroup.POST("/student", jwt.MustAuth(consts.StudentPermission), handler.StudentLogin)
-		loginGroup.POST("/teacher", jwt.MustAuth(consts.TeacherPermission), handler.TeacherLogin)
+		loginGroup.POST("/student", handler.StudentLogin)
+		loginGroup.POST("/teacher", handler.TeacherLogin)
 	}
+
 	manageGroup := user.Group("/manage")
 	manageGroup.Use(jwt.Auth(consts.SchoolPermission))
 	{
 		manageGroup.POST("", handler.SaveUser)
+		manageGroup.PUT("/:id/:isStu/password", handler.ResetPassword)
+		manageGroup.PUT("/role", handler.UpdateTeacherRole)
+		manageGroup.PUT("", handler.UpdateUser)
+		manageGroup.DELETE("/:id/:isStu", handler.DeleteUser)
 	}
 }
