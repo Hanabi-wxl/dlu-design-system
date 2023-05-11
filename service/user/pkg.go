@@ -11,15 +11,15 @@ type UserService struct {
 
 type UserRequest struct {
 	ID        int64   `json:"id"`
-	Number    string  `json:"number" binding:"min=8,max=8,required"`
-	Name      string  `json:"name" binding:"required,max=16"`
-	Phone     *string `json:"phone" binding:"required"`
-	Email     *string `json:"email" binding:"required"`
-	Gender    int8    `json:"gender" binding:"required"`
-	CollegeID int64   `json:"college_id" binding:"required"`
-	MajorID   int64   `json:"major_id" binding:"required"`
+	Number    string  `json:"number"`
+	Name      string  `json:"name"`
+	Phone     *string `json:"phone"`
+	Email     *string `json:"email"`
+	Gender    int8    `json:"gender"`
+	CollegeID int64   `json:"college_id"`
+	MajorID   int64   `json:"major_id"`
 	ClassID   int64   `json:"class_id"`
-	Password  string  `json:"password" binding:"required"`
+	Password  string  `json:"password"`
 	TitleID   int64   `json:"title_id"`
 	DegreeID  int64   `json:"degree_id"`
 	OfficeID  int64   `json:"office_id"`
