@@ -35,15 +35,15 @@ func (u InfoServiceImpl) UserInfo() {
 //	@param isStu 0表示老师 1表示学生
 //	@return User
 //	@return *errno.Errno
-func (u InfoServiceImpl) GetUserById(id, isStu int) (User, *errno.Errno) {
-	var U User
+func (InfoServiceImpl) GetUserById(id int64, isStu int8) (*User, *errno.Errno) {
+	var u User
 	if isStu == 1 {
-		stu, err := db.Student.Where(db.Student.ID.Eq(int64(id))).Take()
+		stu, err := db.Student.Where(db.Student.ID.Eq(id)).Take()
 		if err != nil {
 			logrus.Error(err)
-			return User{}, nil
+			return nil, nil
 		}
-		U = User{
+		u = User{
 			ID:        stu.ID,
 			Number:    stu.Number,
 			Name:      stu.Name,
@@ -54,12 +54,12 @@ func (u InfoServiceImpl) GetUserById(id, isStu int) (User, *errno.Errno) {
 			IsStu:     1,
 		}
 	} else {
-		teacher, err := db.Teacher.Where(db.Teacher.ID.Eq(int64(id))).Take()
+		teacher, err := db.Teacher.Where(db.Teacher.ID.Eq(id)).Take()
 		if err != nil {
 			logrus.Error(err)
-			return User{}, nil
+			return nil, nil
 		}
-		U = User{
+		u = User{
 			ID:        teacher.ID,
 			Number:    teacher.Number,
 			Name:      teacher.Name,
@@ -70,18 +70,18 @@ func (u InfoServiceImpl) GetUserById(id, isStu int) (User, *errno.Errno) {
 			IsStu:     0,
 		}
 	}
-	return U, nil
+	return &u, nil
 }
 
-func (u InfoServiceImpl) GetUserByNumber(number string, isStu int8) (User, *errno.Errno) {
-	var U User
+func (InfoServiceImpl) GetUserByNumber(number string, isStu int8) (*User, *errno.Errno) {
+	var u User
 	if isStu == 1 {
 		stu, err := db.Student.Where(db.Student.Number.Eq(number)).Take()
 		if err != nil {
 			logrus.Error(err)
-			return User{}, nil
+			return nil, nil
 		}
-		U = User{
+		u = User{
 			ID:        stu.ID,
 			Number:    stu.Number,
 			Name:      stu.Name,
@@ -95,9 +95,9 @@ func (u InfoServiceImpl) GetUserByNumber(number string, isStu int8) (User, *errn
 		teacher, err := db.Teacher.Where(db.Teacher.Number.Eq(number)).Take()
 		if err != nil {
 			logrus.Error(err)
-			return User{}, nil
+			return nil, nil
 		}
-		U = User{
+		u = User{
 			ID:        teacher.ID,
 			Number:    teacher.Number,
 			Name:      teacher.Name,
@@ -108,7 +108,7 @@ func (u InfoServiceImpl) GetUserByNumber(number string, isStu int8) (User, *errn
 			IsStu:     0,
 		}
 	}
-	return U, nil
+	return &u, nil
 }
 
 func (u InfoServiceImpl) GetUsersByMajor(majorId, isStu, size, num int) (*[]User, *errno.Errno) {
@@ -132,7 +132,7 @@ func (u InfoServiceImpl) GetUsersByMajor(majorId, isStu, size, num int) (*[]User
 			}
 			Us = append(Us, u)
 		}
-	} else if isStu == 0 {
+	} else {
 		teachers, err := db.Teacher.Where(db.Teacher.MajorID.Eq(int64(majorId))).Limit(size).Offset(size * (num - 1)).Find()
 		if err != nil {
 			logrus.Error(err)
@@ -176,7 +176,7 @@ func (u InfoServiceImpl) GetUsersByCollege(collegeId, isStu, size, num int) (*[]
 			}
 			Us = append(Us, u)
 		}
-	} else if isStu == 0 {
+	} else {
 		teachers, err := db.Teacher.Where(db.Teacher.CollegeID.Eq(int64(collegeId))).Limit(size).Offset(size * (num - 1)).Find()
 		if err != nil {
 			logrus.Error(err)

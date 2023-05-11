@@ -8,13 +8,13 @@ import (
 )
 
 func GetUserById(c *gin.Context) {
-	var IdRequest IdRequest
-	if err := c.ShouldBindUri(&IdRequest); err != nil {
+	var IdRoleRequest IdRoleRequest
+	if err := c.ShouldBindUri(&IdRoleRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
 	userService := service.GetUserService()
-	user, err := userService().GetUserById(int(IdRequest.Id), int(IdRequest.IsStu))
+	user, err := userService().GetUserById(int(IdRoleRequest.Id), int(IdRoleRequest.IsStu))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {

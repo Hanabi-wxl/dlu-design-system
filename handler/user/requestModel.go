@@ -5,11 +5,6 @@ type IdRoleRequest struct {
 	IsStu int8  `uri:"isStu"`
 }
 
-type IdRequest struct {
-	Id    int64 `uri:"id"`
-	IsStu int8  `uri:"isStu"`
-}
-
 type NumberRequest struct {
 	Number string `uri:"number"`
 	IsStu  int8   `uri:"isStu"`
