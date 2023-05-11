@@ -32,6 +32,7 @@ func GetUserService() func() UserService {
 		loginService := new(LoginServiceImpl)
 		roleService := new(RoleServiceImpl)
 		manageService := new(ManageServiceImpl)
+
 		userService.InfoService = infoService
 		userService.RoleService = roleService
 		userService.LoginService = loginService

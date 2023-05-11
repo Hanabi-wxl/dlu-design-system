@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func SaveUser(c *gin.Context) {
+func AddUser(c *gin.Context) {
 	var saveUserReq service.UserRequest
 	if err := c.ShouldBindJSON(&saveUserReq); err != nil {
 		msg := utils.TranslateOverride(err)
@@ -16,7 +16,7 @@ func SaveUser(c *gin.Context) {
 		return
 	}
 	userService := service.GetUserService()
-	errno := userService().SaveUser(saveUserReq)
+	errno := userService().SaveUser(&saveUserReq)
 	if errno != nil {
 		c.JSON(http.StatusBadRequest, errno)
 	} else {
@@ -61,7 +61,7 @@ func UpdateUser(c *gin.Context) {
 		return
 	}
 	userService := service.GetUserService()
-	errno := userService().UpdateUser(updateUserReq)
+	errno := userService().UpdateUser(&updateUserReq)
 	if errno != nil {
 		c.JSON(http.StatusBadRequest, errno)
 	} else {

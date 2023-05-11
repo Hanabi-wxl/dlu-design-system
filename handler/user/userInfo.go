@@ -8,13 +8,13 @@ import (
 )
 
 func GetUserById(c *gin.Context) {
-	var IdRoleRequest IdRoleRequest
-	if err := c.ShouldBindUri(&IdRoleRequest); err != nil {
+	var idRoleRequest IdRoleRequest
+	if err := c.ShouldBindUri(&idRoleRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
 	userService := service.GetUserService()
-	user, err := userService().GetUserById(int(IdRoleRequest.Id), int(IdRoleRequest.IsStu))
+	user, err := userService().GetUserById(idRoleRequest.Id, idRoleRequest.IsStu)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
@@ -23,13 +23,13 @@ func GetUserById(c *gin.Context) {
 }
 
 func GetUserByNumber(c *gin.Context) {
-	var NumberRequest NumberRequest
-	if err := c.ShouldBindUri(&NumberRequest); err != nil {
+	var numberRequest NumberRequest
+	if err := c.ShouldBindUri(&numberRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
 	userService := service.GetUserService()
-	user, err := userService().GetUserByNumber(NumberRequest.Number, NumberRequest.IsStu)
+	user, err := userService().GetUserByNumber(numberRequest.Number, numberRequest.IsStu)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
@@ -38,14 +38,14 @@ func GetUserByNumber(c *gin.Context) {
 }
 
 func GetUsersByMajor(c *gin.Context) {
-	var MajorIdRequest MajorIdRequest
-	if err := c.ShouldBindUri(&MajorIdRequest); err != nil {
+	var majorIdRequest MajorIdRequest
+	if err := c.ShouldBindUri(&majorIdRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
 	userService := service.GetUserService()
-	users, err := userService().GetUsersByMajor(MajorIdRequest.MajorId, int(MajorIdRequest.IsStu),
-		MajorIdRequest.Size, MajorIdRequest.Num)
+	users, err := userService().GetUsersByMajor(majorIdRequest.MajorId, majorIdRequest.IsStu,
+		majorIdRequest.Size, majorIdRequest.Num)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
@@ -54,14 +54,14 @@ func GetUsersByMajor(c *gin.Context) {
 }
 
 func GetUsersByCollege(c *gin.Context) {
-	var CollegeIdRequest CollegeIdRequest
-	if err := c.ShouldBindUri(&CollegeIdRequest); err != nil {
+	var collegeIdRequest CollegeIdRequest
+	if err := c.ShouldBindUri(&collegeIdRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
 	userService := service.GetUserService()
-	users, err := userService().GetUsersByCollege(CollegeIdRequest.CollegeId, int(CollegeIdRequest.IsStu),
-		CollegeIdRequest.Size, CollegeIdRequest.Num)
+	users, err := userService().GetUsersByCollege(collegeIdRequest.CollegeId, collegeIdRequest.IsStu,
+		collegeIdRequest.Size, collegeIdRequest.Num)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
