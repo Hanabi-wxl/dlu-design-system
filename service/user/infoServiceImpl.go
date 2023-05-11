@@ -23,10 +23,6 @@ type User struct {
 	IsStu int8 `json:"is_stu"`
 }
 
-func (u InfoServiceImpl) UserInfo() {
-
-}
-
 // GetUserById
 //
 //	@Description:
@@ -111,7 +107,7 @@ func (InfoServiceImpl) GetUserByNumber(number string, isStu int8) (*User, *errno
 	return &u, nil
 }
 
-func (u InfoServiceImpl) GetUsersByMajor(majorId, isStu, size, num int) (*[]User, *errno.Errno) {
+func (InfoServiceImpl) GetUsersByMajor(majorId int64, isStu int8, size, num int) (*[]User, *errno.Errno) {
 	var Us []User
 	if isStu == 1 {
 		stus, err := db.Student.Where(db.Student.MajorID.Eq(int64(majorId))).Limit(size).Offset(size * (num - 1)).Find()
@@ -155,7 +151,7 @@ func (u InfoServiceImpl) GetUsersByMajor(majorId, isStu, size, num int) (*[]User
 	return &Us, nil
 }
 
-func (u InfoServiceImpl) GetUsersByCollege(collegeId, isStu, size, num int) (*[]User, *errno.Errno) {
+func (InfoServiceImpl) GetUsersByCollege(collegeId int64, isStu int8, size, num int) (*[]User, *errno.Errno) {
 	var Us []User
 	if isStu == 1 {
 		stus, err := db.Student.Where(db.Student.CollegeID.Eq(int64(collegeId))).Limit(size).Offset(size * (num - 1)).Find()

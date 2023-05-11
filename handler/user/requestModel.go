@@ -29,15 +29,15 @@ type UserLoginRequest struct {
 }
 
 type CollegeIdRequest struct {
-	CollegeId int  `uri:"collegeId"`
-	IsStu     int8 `uri:"isStu"`
-	Size      int  `uri:"size"`
-	Num       int  `uri:"num"`
+	CollegeId int64 `uri:"collegeId"`
+	IsStu     int8  `uri:"isStu"`
+	Size      int   `uri:"size"`
+	Num       int   `uri:"num"`
 }
 
 type MajorIdRequest struct {
-	MajorId int  `uri:"majorId"`
-	IsStu   int8 `uri:"isStu"`
-	Size    int  `uri:"size"`
-	Num     int  `uri:"num"`
+	MajorId int64 `uri:"majorId"`
+	IsStu   int8  `uri:"isStu"`
+	Size    int   `uri:"size"`
+	Num     int   `uri:"num"`
 }
