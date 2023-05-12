@@ -10,21 +10,23 @@ import (
 type Claims struct {
 	UserId int64
 	RoleId int64
+	Number string
 	jwt.StandardClaims
 }
 
 // GenerateToken 根据username生成一个token
-func GenerateToken(id, roleId int64) string {
-	token := newToken(id, roleId)
+func GenerateToken(id, roleId int64, number string) string {
+	token := newToken(id, roleId, number)
 	return token
 }
 
 // newToken 根据信息创建token
-func newToken(id, roleId int64) string {
+func newToken(id, roleId int64, number string) string {
 	expiresTime := time.Now().Unix() + consts.DefaultExpiresTime
 	userClaims := Claims{
 		UserId: id,
 		RoleId: roleId,
+		Number: number,
 		StandardClaims: jwt.StandardClaims{
 			Audience:  "dlu-ie-college",
 			ExpiresAt: expiresTime,

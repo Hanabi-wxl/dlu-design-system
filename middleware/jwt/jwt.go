@@ -29,6 +29,7 @@ func Auth(roleId int64) gin.HandlerFunc {
 			} else {
 				context.Set("userId", claim.Id)
 				context.Set("roleId", claim.RoleId)
+				context.Set("number", claim.Number)
 				logrus.Info("==============认证成功===========")
 				context.Next()
 			}
@@ -55,6 +56,7 @@ func MustAuth(roleId int64) gin.HandlerFunc {
 			} else {
 				context.Set("userId", claim.Id)
 				context.Set("roleId", claim.RoleId)
+				context.Set("number", claim.Number)
 				logrus.Info("==============认证成功===========")
 				context.Next()
 			}

@@ -10,6 +10,7 @@ import (
 
 func Init() {
 	engine := gin.Default()
+	engine.ForwardedByClientIP = true
 	gin.DefaultWriter = io.MultiWriter(os.Stdout, logger.Logger)
 	engine.Use(limiter.Limiter())
 	api := engine.Group("/api")

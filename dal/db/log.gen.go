@@ -28,10 +28,10 @@ func newLog(db *gorm.DB, opts ...gen.DOOption) log {
 	tableName := _log.logDo.TableName()
 	_log.ALL = field.NewAsterisk(tableName)
 	_log.ID = field.NewInt64(tableName, "id")
-	_log.State = field.NewInt8(tableName, "state")
-	_log.Method = field.NewInt8(tableName, "method")
+	_log.Operator = field.NewString(tableName, "operator")
 	_log.Content = field.NewString(tableName, "content")
-	_log.OperatorID = field.NewInt64(tableName, "operator_id")
+	_log.Method = field.NewInt8(tableName, "method")
+	_log.State = field.NewInt8(tableName, "state")
 	_log.OperatorIP = field.NewString(tableName, "operator_ip")
 	_log.CreatedAt = field.NewTime(tableName, "created_at")
 
@@ -45,10 +45,10 @@ type log struct {
 
 	ALL        field.Asterisk
 	ID         field.Int64  // id
-	State      field.Int8   // 日志状态
-	Method     field.Int8   // 操作方法
+	Operator   field.String // 操作者
 	Content    field.String // 内容
-	OperatorID field.Int64  // 操作者id
+	Method     field.Int8   // 操作方法
+	State      field.Int8   // 日志状态
 	OperatorIP field.String // 操作者ip
 	CreatedAt  field.Time   // 生成时间
 
@@ -68,10 +68,10 @@ func (l log) As(alias string) *log {
 func (l *log) updateTableName(table string) *log {
 	l.ALL = field.NewAsterisk(table)
 	l.ID = field.NewInt64(table, "id")
-	l.State = field.NewInt8(table, "state")
-	l.Method = field.NewInt8(table, "method")
+	l.Operator = field.NewString(table, "operator")
 	l.Content = field.NewString(table, "content")
-	l.OperatorID = field.NewInt64(table, "operator_id")
+	l.Method = field.NewInt8(table, "method")
+	l.State = field.NewInt8(table, "state")
 	l.OperatorIP = field.NewString(table, "operator_ip")
 	l.CreatedAt = field.NewTime(table, "created_at")
 
@@ -92,10 +92,10 @@ func (l *log) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 func (l *log) fillFieldMap() {
 	l.fieldMap = make(map[string]field.Expr, 7)
 	l.fieldMap["id"] = l.ID
-	l.fieldMap["state"] = l.State
-	l.fieldMap["method"] = l.Method
+	l.fieldMap["operator"] = l.Operator
 	l.fieldMap["content"] = l.Content
-	l.fieldMap["operator_id"] = l.OperatorID
+	l.fieldMap["method"] = l.Method
+	l.fieldMap["state"] = l.State
 	l.fieldMap["operator_ip"] = l.OperatorIP
 	l.fieldMap["created_at"] = l.CreatedAt
 }
