@@ -11,19 +11,19 @@ type DegreeServiceImpl struct {
 }
 
 func (c DegreeServiceImpl) GetDegrees() ([]*model.TeacherDegree, *errno.Errno) {
-	TeacherDegrees, err := db.TeacherDegree.Where(db.TeacherDegree.ID.Gt(0)).Find()
+	teacherDegrees, err := db.TeacherDegree.Where(db.TeacherDegree.ID.Gt(0)).Find()
 	if err != nil {
 		logrus.Error(err)
 		return nil, errno.NewErrno(errno.DbErrorCode, err.Error())
 	}
-	return TeacherDegrees, nil
+	return teacherDegrees, nil
 }
 
 func (c DegreeServiceImpl) GetDegree(id int64) (*model.TeacherDegree, *errno.Errno) {
-	TeacherDegree, err := db.TeacherDegree.Where(db.TeacherDegree.ID.Eq(id)).Take()
+	teacherDegree, err := db.TeacherDegree.Where(db.TeacherDegree.ID.Eq(id)).Take()
 	if err != nil {
 		logrus.Error(err)
 		return nil, errno.NewErrno(errno.DbErrorCode, err.Error())
 	}
-	return TeacherDegree, nil
+	return teacherDegree, nil
 }

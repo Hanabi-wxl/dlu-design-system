@@ -13,25 +13,25 @@ func RegisterInfoRouter(engin *gin.RouterGroup) {
 		info.GET("/schools/:size/:num", handler.GetSchoolList)
 		info.POST("/school", jwt.Auth(consts.SchoolPermission), handler.AddSchool)
 		info.DELETE("/school/:id", jwt.Auth(consts.SchoolPermission), handler.DeleteSchool)
-		info.PUT("/school/:id", jwt.Auth(consts.SchoolPermission), handler.UpdateSchool)
+		info.PUT("/school", jwt.Auth(consts.SchoolPermission), handler.UpdateSchool)
 		info.GET("/school/:id", handler.GetSchool)
 
 		info.GET("/colleges/:size/:num", handler.GetCollegeList)
 		info.POST("/college", jwt.Auth(consts.SchoolPermission), handler.AddCollege)
 		info.DELETE("/college/:id", jwt.Auth(consts.SchoolPermission), handler.DeleteCollege)
-		info.PUT("/college/:id", jwt.Auth(consts.SchoolPermission), handler.UpdateCollege)
+		info.PUT("/college", jwt.Auth(consts.SchoolPermission), handler.UpdateCollege)
 		info.GET("/college/:id", handler.GetCollege)
 
 		info.GET("/majors/:size/:num", handler.GetMajorList)
 		info.POST("/major", jwt.Auth(consts.SchoolPermission), handler.AddMajor)
 		info.DELETE("/major/:id", jwt.Auth(consts.SchoolPermission), handler.DeleteMajor)
-		info.PUT("/major/:id", jwt.Auth(consts.SchoolPermission), handler.UpdateMajor)
+		info.PUT("/major", jwt.Auth(consts.SchoolPermission), handler.UpdateMajor)
 		info.GET("/major/:id", handler.GetMajor)
 
 		info.GET("/classes/:size/:num", handler.GetClassList)
 		info.POST("/class", jwt.Auth(consts.SchoolPermission), handler.AddClass)
 		info.DELETE("/class/:id", jwt.Auth(consts.SchoolPermission), handler.DeleteClass)
-		info.PUT("/class/:id", jwt.Auth(consts.SchoolPermission), handler.UpdateClass)
+		info.PUT("/class", jwt.Auth(consts.SchoolPermission), handler.UpdateClass)
 		info.GET("/class/:id", handler.GetClass)
 
 		info.GET("/titles", handler.GetTitles)
@@ -40,7 +40,7 @@ func RegisterInfoRouter(engin *gin.RouterGroup) {
 		info.GET("/degrees", handler.GetDegrees)
 		info.GET("/degree/:id", handler.GetDegree)
 
-		info.GET("/sections", handler.GetSections)
-		info.GET("/section/:id", handler.GetSection)
+		info.GET("/offices", handler.GetOffices)
+		info.GET("/office/:id", handler.GetOffice)
 	}
 }
