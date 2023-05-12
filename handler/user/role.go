@@ -19,6 +19,20 @@ func GetRoleList(c *gin.Context) {
 	}
 }
 
+func GetRole(c *gin.Context) {
+	var roleIdReq RoleIdRequest
+	if err := c.ShouldBindUri(&roleIdReq); err != nil {
+		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
+		return
+	}
+	usersvs := userService.GetUserService()
+	if role, errno := usersvs().GetRole(roleIdReq.RoleId); errno != nil {
+		c.JSON(http.StatusBadRequest, errno)
+	} else {
+		c.JSON(http.StatusOK, result.NewOkResult(role))
+	}
+}
+
 func UpdateRole(c *gin.Context) {
 	var role model.Role
 	if err := c.ShouldBindJSON(&role); err != nil {
