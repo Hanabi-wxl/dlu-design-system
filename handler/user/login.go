@@ -8,6 +8,11 @@ import (
 	"net/http"
 )
 
+type UserLoginReq struct {
+	Number   string `json:"number" binding:"required,max=8,min=8"`
+	Password string `json:"password" binding:"required,max=16,min=8"`
+}
+
 func CheckLoginRole(c *gin.Context) {
 	number := c.Param("number")
 	userService := service.GetUserService()
@@ -20,7 +25,7 @@ func CheckLoginRole(c *gin.Context) {
 }
 
 func StudentLogin(c *gin.Context) {
-	var userLoginReq UserLoginRequest
+	var userLoginReq UserLoginReq
 	if err := c.ShouldBindJSON(&userLoginReq); err != nil {
 		msg := utils.TranslateOverride(err)
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(msg))
@@ -35,16 +40,8 @@ func StudentLogin(c *gin.Context) {
 }
 
 func TeacherLogin(c *gin.Context) {
-	var userLoginReq UserLoginRequest
+	var userLoginReq UserLoginReq
 	if err := c.ShouldBindJSON(&userLoginReq); err != nil {
-		msg := utils.TranslateOverride(err)
-		c.JSON(http.StatusBadRequest, result.NewFailedResult(msg))
-	}
-	userService := service.GetUserService()
-	res, errno := userService().TeacherLogin(userLoginReq.Number, userLoginReq.Password)
-	if errno != nil {
-		c.JSON(http.StatusBadRequest, errno)
-	} else {
-		c.JSON(http.StatusOK, result.NewOkResult(res))
+
 	}
 }

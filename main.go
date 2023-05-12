@@ -88,15 +88,6 @@ func gormGen() {
 		}
 		return columnName
 	})
-
-	//bindingField := gen.FieldNewTagWithNS("binding", func(columnName string) string {
-	//	switch columnName {
-	//	case "id":
-	//		return "required"
-	//	}
-	//	return ""
-	//})
-
 	// 将非默认字段名的字段定义为自动时间戳和软删除字段;
 	// 自动时间戳默认字段名为:`updated_at`、`created_at, 表字段数据类型为: INT 或 DATETIME
 	// 软删除默认字段名为:`deleted_at`, 表字段数据类型为: DATETIME
