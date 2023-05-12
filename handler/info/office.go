@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GetSections
+// GetOffices
 //
 //	@Description: 查询所有科室信息 参数:
 //	@param c
@@ -23,7 +23,7 @@ func GetOffices(c *gin.Context) {
 	}
 }
 
-// GetSection
+// GetOffice
 //
 //	@Description: 根据id查询单个科室信息 参数: IdRequest
 //	@param c

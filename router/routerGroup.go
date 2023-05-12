@@ -4,6 +4,7 @@ import (
 	"github.com/Hanabi-wxl/dlu-design-system/middleware/limiter"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/logger"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 	"io"
 	"os"
 )
@@ -16,5 +17,8 @@ func Init() {
 	api := engine.Group("/api")
 	RegisterUserRouter(api)
 	RegisterInfoRouter(api)
-	engine.Run()
+	err := engine.Run()
+	if err != nil {
+		logrus.Fatal("服务启动失败")
+	}
 }
