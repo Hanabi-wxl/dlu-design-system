@@ -40,7 +40,7 @@ func RegisterInfoRouter(engin *gin.RouterGroup) {
 		info.GET("/degrees", handler.GetDegrees)
 		info.GET("/degree/:id", handler.GetDegree)
 
-		info.GET("/sections", handler.GetSections)
-		info.GET("/section/:id", handler.GetSection)
+		info.GET("/offices", handler.GetOffices)
+		info.GET("/office/:id", handler.GetOffice)
 	}
 }
