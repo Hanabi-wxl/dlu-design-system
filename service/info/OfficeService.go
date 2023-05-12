@@ -6,6 +6,6 @@ import (
 )
 
 type SectionService interface {
-	GetSections() ([]*model.TeacherOffice, *errno.Errno)
-	GetSection(id int64) (*model.TeacherOffice, *errno.Errno)
+	GetOffices() ([]*model.TeacherOffice, *errno.Errno)
+	GetOffice(id int64) (*model.TeacherOffice, *errno.Errno)
 }
