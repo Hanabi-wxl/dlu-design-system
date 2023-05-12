@@ -11,19 +11,19 @@ type SectionServiceImpl struct {
 }
 
 func (c SectionServiceImpl) GetSections() ([]*model.TeacherOffice, *errno.Errno) {
-	TeacherSections, err := db.TeacherOffice.Where(db.TeacherOffice.ID.Gt(0)).Find()
+	teacherSections, err := db.TeacherOffice.Where(db.TeacherOffice.ID.Gt(0)).Find()
 	if err != nil {
 		logrus.Error(err)
 		return nil, errno.NewErrno(errno.DbErrorCode, err.Error())
 	}
-	return TeacherSections, nil
+	return teacherSections, nil
 }
 
 func (c SectionServiceImpl) GetSection(id int64) (*model.TeacherOffice, *errno.Errno) {
-	TeacherSection, err := db.TeacherOffice.Where(db.TeacherOffice.ID.Eq(id)).Take()
+	teacherSection, err := db.TeacherOffice.Where(db.TeacherOffice.ID.Eq(id)).Take()
 	if err != nil {
 		logrus.Error(err)
 		return nil, errno.NewErrno(errno.DbErrorCode, err.Error())
 	}
-	return TeacherSection, nil
+	return teacherSection, nil
 }

@@ -11,19 +11,19 @@ type TitleServiceImpl struct {
 }
 
 func (c TitleServiceImpl) GetTitles() ([]*model.TeacherTitle, *errno.Errno) {
-	TeacherTitles, err := db.TeacherTitle.Where(db.TeacherTitle.ID.Gt(0)).Find()
+	teacherTitles, err := db.TeacherTitle.Where(db.TeacherTitle.ID.Gt(0)).Find()
 	if err != nil {
 		logrus.Error(err)
 		return nil, errno.NewErrno(errno.DbErrorCode, err.Error())
 	}
-	return TeacherTitles, nil
+	return teacherTitles, nil
 }
 
 func (c TitleServiceImpl) GetTitle(id int64) (*model.TeacherTitle, *errno.Errno) {
-	TeacherTitle, err := db.TeacherTitle.Where(db.TeacherTitle.ID.Eq(id)).Take()
+	teacherTitle, err := db.TeacherTitle.Where(db.TeacherTitle.ID.Eq(id)).Take()
 	if err != nil {
 		logrus.Error(err)
 		return nil, errno.NewErrno(errno.DbErrorCode, err.Error())
 	}
-	return TeacherTitle, nil
+	return teacherTitle, nil
 }
