@@ -13,10 +13,10 @@ const TableNameLog = "log"
 // Log mapped from table <log>
 type Log struct {
 	ID         int64     `gorm:"column:id;type:int(11);primaryKey;autoIncrement:true" json:"id"`  // id
-	State      int8      `gorm:"column:state;type:tinyint(4);not null" json:"state"`              // 日志状态
-	Method     int8      `gorm:"column:method;type:tinyint(4);not null" json:"method"`            // 操作方法
+	Operator   string    `gorm:"column:operator;type:varchar(8);not null" json:"operator"`        // 操作者
 	Content    string    `gorm:"column:content;type:varchar(128);not null" json:"content"`        // 内容
-	OperatorID int64     `gorm:"column:operator_id;type:int(11);not null" json:"operator_id"`     // 操作者id
+	Method     int8      `gorm:"column:method;type:tinyint(4);not null" json:"method"`            // 操作方法
+	State      int8      `gorm:"column:state;type:tinyint(4);not null" json:"state"`              // 日志状态
 	OperatorIP string    `gorm:"column:operator_ip;type:varchar(16);not null" json:"operator_ip"` // 操作者ip
 	CreatedAt  time.Time `gorm:"column:created_at;type:datetime;not null" json:"created_at"`      // 生成时间
 }

@@ -52,7 +52,7 @@ func (l LoginServiceImpl) StudentLogin(number, password string) (map[string]inte
 		return nil, errno.NewErrno(errno.DbErrorCode, errno.NumberNotFoundErrMsg)
 	} else {
 		if checkPassword(password, student.Password) {
-			token := utils.GenerateToken(student.ID, 1)
+			token := utils.GenerateToken(student.ID, 1, number)
 			res["token"] = token
 			return res, nil
 		} else {
@@ -68,7 +68,7 @@ func (l LoginServiceImpl) TeacherLogin(number, password string) (map[string]inte
 		return nil, errno.NewErrno(errno.DbErrorCode, errno.NumberNotFoundErrMsg)
 	} else {
 		if checkPassword(password, teacher.Password) {
-			token := utils.GenerateToken(teacher.ID, teacher.RoleID)
+			token := utils.GenerateToken(teacher.ID, teacher.RoleID, number)
 			res["token"] = token
 			return res, nil
 		} else {

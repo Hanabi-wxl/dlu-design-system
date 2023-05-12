@@ -17,13 +17,13 @@ import (
 )
 
 type MyWriter struct {
-	mlog *logrus.Logger
+	mLog *logrus.Logger
 }
 
 func (m *MyWriter) Printf(format string, v ...interface{}) {
-	logstr := fmt.Sprintf(format, v...)
+	logStr := fmt.Sprintf(format, v...)
 	//利用logrus记录日志
-	m.mlog.Info(logstr)
+	m.mLog.Info(logStr)
 }
 
 func NewMyWriter() *MyWriter {
@@ -37,7 +37,7 @@ func NewMyWriter() *MyWriter {
 	logg.SetOutput(fileAndStdoutWriter)
 	// 设置最低loglevel
 	logg.SetLevel(logrus.InfoLevel)
-	return &MyWriter{mlog: logg}
+	return &MyWriter{mLog: logg}
 }
 
 func Init() {

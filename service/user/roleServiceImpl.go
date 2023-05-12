@@ -44,3 +44,11 @@ func (RoleServiceImpl) AddRole(role *model.Role) *errno.Errno {
 		return nil
 	}
 }
+
+func (RoleServiceImpl) GetRole(id int64) (*model.Role, *errno.Errno) {
+	if role, err := db.Role.Where(db.Role.ID.Eq(id)).Take(); err != nil {
+		return nil, errno.NewErrno(errno.DbErrorCode, err.Error())
+	} else {
+		return role, nil
+	}
+}

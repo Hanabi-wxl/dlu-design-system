@@ -29,4 +29,6 @@ type RoleService interface {
 	// @param role 角色
 	// @return *errno.Errno
 	AddRole(role *model.Role) *errno.Errno
+
+	GetRole(id int64) (*model.Role, *errno.Errno)
 }

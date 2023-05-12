@@ -110,7 +110,7 @@ func (InfoServiceImpl) GetUserByNumber(number string, isStu int8) (*User, *errno
 func (InfoServiceImpl) GetUsersByMajor(majorId int64, isStu int8, size, num int) (*[]User, *errno.Errno) {
 	var Us []User
 	if isStu == 1 {
-		stus, err := db.Student.Where(db.Student.MajorID.Eq(int64(majorId))).Limit(size).Offset(size * (num - 1)).Find()
+		stus, err := db.Student.Where(db.Student.MajorID.Eq(majorId)).Limit(size).Offset(size * (num - 1)).Find()
 		if err != nil {
 			logrus.Error(err)
 			return nil, nil
@@ -129,7 +129,7 @@ func (InfoServiceImpl) GetUsersByMajor(majorId int64, isStu int8, size, num int)
 			Us = append(Us, u)
 		}
 	} else {
-		teachers, err := db.Teacher.Where(db.Teacher.MajorID.Eq(int64(majorId))).Limit(size).Offset(size * (num - 1)).Find()
+		teachers, err := db.Teacher.Where(db.Teacher.MajorID.Eq(majorId)).Limit(size).Offset(size * (num - 1)).Find()
 		if err != nil {
 			logrus.Error(err)
 			return nil, nil
@@ -154,7 +154,7 @@ func (InfoServiceImpl) GetUsersByMajor(majorId int64, isStu int8, size, num int)
 func (InfoServiceImpl) GetUsersByCollege(collegeId int64, isStu int8, size, num int) (*[]User, *errno.Errno) {
 	var Us []User
 	if isStu == 1 {
-		stus, err := db.Student.Where(db.Student.CollegeID.Eq(int64(collegeId))).Limit(size).Offset(size * (num - 1)).Find()
+		stus, err := db.Student.Where(db.Student.CollegeID.Eq(collegeId)).Limit(size).Offset(size * (num - 1)).Find()
 		if err != nil {
 			logrus.Error(err)
 			return nil, nil
@@ -173,7 +173,7 @@ func (InfoServiceImpl) GetUsersByCollege(collegeId int64, isStu int8, size, num 
 			Us = append(Us, u)
 		}
 	} else {
-		teachers, err := db.Teacher.Where(db.Teacher.CollegeID.Eq(int64(collegeId))).Limit(size).Offset(size * (num - 1)).Find()
+		teachers, err := db.Teacher.Where(db.Teacher.CollegeID.Eq(collegeId)).Limit(size).Offset(size * (num - 1)).Find()
 		if err != nil {
 			logrus.Error(err)
 			return nil, nil

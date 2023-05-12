@@ -17,7 +17,7 @@ func RegisterUserRouter(engin *gin.RouterGroup) {
 	}
 
 	manageGroup := user.Group("/manage")
-	manageGroup.Use(jwt.Auth(consts.SchoolPermission))
+	manageGroup.Use(jwt.NeedAuth(consts.SchoolPermission))
 	{
 		manageGroup.POST("", handler.AddUser)
 		manageGroup.PUT("/:id/:isStu/password", handler.ResetPassword)
@@ -26,12 +26,14 @@ func RegisterUserRouter(engin *gin.RouterGroup) {
 		manageGroup.DELETE("/:id/:isStu", handler.DeleteUser)
 	}
 
-	user.GET("/roles", jwt.Auth(consts.SchoolPermission), handler.GetRoleList)
-	user.POST("/role", jwt.Auth(consts.SchoolPermission), handler.AddRole)
-	user.PUT("/role", jwt.Auth(consts.SchoolPermission), handler.UpdateRole)
-	user.DELETE("/role/:roleId", jwt.Auth(consts.SchoolPermission), handler.DeleteRole)
+	user.GET("/roles", jwt.NeedAuth(consts.SchoolPermission), handler.GetRoleList)
+	user.POST("/role", jwt.NeedAuth(consts.SchoolPermission), handler.AddRole)
+	user.GET("/role/:roleId", jwt.NeedAuth(consts.SchoolPermission), handler.GetRole)
+	user.PUT("/role", jwt.NeedAuth(consts.SchoolPermission), handler.UpdateRole)
+	user.DELETE("/role/:roleId", jwt.NeedAuth(consts.SchoolPermission), handler.DeleteRole)
 
 	infoGroup := user.Group("/info")
+	infoGroup.Use(jwt.Auth())
 	{
 		infoGroup.GET("/:id/:isStu", handler.GetUserById)
 		infoGroup.GET("/number/:number/:isStu", handler.GetUserByNumber)
