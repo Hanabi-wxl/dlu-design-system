@@ -12,12 +12,30 @@ func RegisterUserRouter(engin *gin.RouterGroup) {
 	loginGroup := user.Group("/login")
 	{
 		loginGroup.GET("/role/:number", handler.CheckLoginRole)
-		loginGroup.POST("/student", jwt.MustAuth(consts.StudentPermission), handler.StudentLogin)
-		loginGroup.POST("/teacher", jwt.MustAuth(consts.TeacherPermission), handler.TeacherLogin)
+		loginGroup.POST("/student", handler.StudentLogin)
+		loginGroup.POST("/teacher", handler.TeacherLogin)
 	}
+
 	manageGroup := user.Group("/manage")
 	manageGroup.Use(jwt.Auth(consts.SchoolPermission))
 	{
-		manageGroup.POST("", handler.SaveUser)
+		manageGroup.POST("", handler.AddUser)
+		manageGroup.PUT("/:id/:isStu/password", handler.ResetPassword)
+		manageGroup.PUT("/role", handler.UpdateTeacherRole)
+		manageGroup.PUT("", handler.UpdateUser)
+		manageGroup.DELETE("/:id/:isStu", handler.DeleteUser)
+	}
+
+	user.GET("/roles", jwt.Auth(consts.SchoolPermission), handler.GetRoleList)
+	user.POST("/role", jwt.Auth(consts.SchoolPermission), handler.AddRole)
+	user.PUT("/role", jwt.Auth(consts.SchoolPermission), handler.UpdateRole)
+	user.DELETE("/role/:roleId", jwt.Auth(consts.SchoolPermission), handler.DeleteRole)
+
+	infoGroup := user.Group("/info")
+	{
+		infoGroup.GET("/:id/:isStu", handler.GetUserById)
+		infoGroup.GET("/number/:number/:isStu", handler.GetUserByNumber)
+		infoGroup.GET("/major/:majorId/:isStu/:size/:num", handler.GetUsersByMajor)
+		infoGroup.GET("/college/:collegeId/:isStu/:size/:num", handler.GetUsersByCollege)
 	}
 }

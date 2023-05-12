@@ -20,10 +20,10 @@ func (c SectionServiceImpl) GetSections() ([]*model.TeacherOffice, *errno.Errno)
 }
 
 func (c SectionServiceImpl) GetSection(id int64) (*model.TeacherOffice, *errno.Errno) {
-	teacherSection, err := db.TeacherOffice.Where(db.TeacherOffice.ID.Eq(id)).Take()
+	TeacherSection, err := db.TeacherOffice.Where(db.TeacherOffice.ID.Eq(id)).Take()
 	if err != nil {
 		logrus.Error(err)
 		return nil, errno.NewErrno(errno.DbErrorCode, err.Error())
 	}
-	return teacherSection, nil
+	return TeacherSection, nil
 }

@@ -17,20 +17,22 @@ func Auth(roleId int64) gin.HandlerFunc {
 		if len(auth) == 0 {
 			context.Abort()
 			context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
+		} else {
+			auth = strings.Fields(auth)[1]
+			claim, err := utils.ParseToken(auth)
+			if err != nil {
+				context.Abort()
+				context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
+			} else if roleId > claim.RoleId {
+				context.Abort()
+				context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
+			} else {
+				context.Set("userId", claim.Id)
+				context.Set("roleId", claim.RoleId)
+				logrus.Info("==============认证成功===========")
+				context.Next()
+			}
 		}
-		auth = strings.Fields(auth)[1]
-		token, err := utils.ParseToken(auth)
-		if err != nil {
-			context.Abort()
-			context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
-		}
-		if roleId > token.RoleId {
-			context.Abort()
-			context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
-		}
-		context.Set("userId", token.Id)
-		logrus.Info("==============认证成功===========")
-		context.Next()
 	}
 }
 
@@ -41,19 +43,21 @@ func MustAuth(roleId int64) gin.HandlerFunc {
 		if len(auth) == 0 {
 			context.Abort()
 			context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
+		} else {
+			auth = strings.Fields(auth)[1]
+			claim, err := utils.ParseToken(auth)
+			if err != nil {
+				context.Abort()
+				context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
+			} else if roleId == claim.RoleId {
+				context.Abort()
+				context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
+			} else {
+				context.Set("userId", claim.Id)
+				context.Set("roleId", claim.RoleId)
+				logrus.Info("==============认证成功===========")
+				context.Next()
+			}
 		}
-		auth = strings.Fields(auth)[1]
-		token, err := utils.ParseToken(auth)
-		if err != nil {
-			context.Abort()
-			context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
-		}
-		if roleId != token.RoleId {
-			context.Abort()
-			context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
-		}
-		context.Set("userId", token.Id)
-		logrus.Info("==============认证成功===========")
-		context.Next()
 	}
 }
