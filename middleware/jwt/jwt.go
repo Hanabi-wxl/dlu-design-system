@@ -51,15 +51,21 @@ func Auth() gin.HandlerFunc {
 			context.Abort()
 			context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
 		} else {
-			auth = strings.Fields(auth)[1]
-			claim, err := utils.ParseToken(auth)
-			if err != nil {
+			auths := strings.Fields(auth)
+			if len(auths) != 2 {
 				context.Abort()
 				context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
 			} else {
-				context.Request = context.Request.WithContext(newContext(context, &UserInfo{ID: claim.UserId, Number: claim.Number, RoleId: claim.RoleId}))
-				logrus.Info("==============认证成功===========")
-				context.Next()
+				auth = auths[1]
+				claim, err := utils.ParseToken(auth)
+				if err != nil {
+					context.Abort()
+					context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
+				} else {
+					context.Request = context.Request.WithContext(newContext(context, &UserInfo{ID: claim.UserId, Number: claim.Number, RoleId: claim.RoleId}))
+					logrus.Info("==============认证成功===========")
+					context.Next()
+				}
 			}
 		}
 	}
@@ -78,18 +84,24 @@ func NeedAuth(roleId int64) gin.HandlerFunc {
 			context.Abort()
 			context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
 		} else {
-			auth = strings.Fields(auth)[1]
-			claim, err := utils.ParseToken(auth)
-			if err != nil {
-				context.Abort()
-				context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
-			} else if roleId > claim.RoleId {
+			auths := strings.Fields(auth)
+			if len(auths) != 2 {
 				context.Abort()
 				context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
 			} else {
-				context.Request = context.Request.WithContext(newContext(context, &UserInfo{ID: claim.UserId, Number: claim.Number, RoleId: claim.RoleId}))
-				logrus.Info("==============认证成功===========")
-				context.Next()
+				auth = auths[1]
+				claim, err := utils.ParseToken(auth)
+				if err != nil {
+					context.Abort()
+					context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
+				} else if roleId > claim.RoleId {
+					context.Abort()
+					context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
+				} else {
+					context.Request = context.Request.WithContext(newContext(context, &UserInfo{ID: claim.UserId, Number: claim.Number, RoleId: claim.RoleId}))
+					logrus.Info("==============认证成功===========")
+					context.Next()
+				}
 			}
 		}
 	}
@@ -108,18 +120,24 @@ func MustAuth(roleId int64) gin.HandlerFunc {
 			context.Abort()
 			context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
 		} else {
-			auth = strings.Fields(auth)[1]
-			claim, err := utils.ParseToken(auth)
-			if err != nil {
-				context.Abort()
-				context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
-			} else if roleId == claim.RoleId {
+			auths := strings.Fields(auth)
+			if len(auths) != 2 {
 				context.Abort()
 				context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
 			} else {
-				context.Request = context.Request.WithContext(newContext(context, &UserInfo{ID: claim.UserId, Number: claim.Number, RoleId: claim.RoleId}))
-				logrus.Info("==============认证成功===========")
-				context.Next()
+				auth = auths[1]
+				claim, err := utils.ParseToken(auth)
+				if err != nil {
+					context.Abort()
+					context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
+				} else if roleId != claim.RoleId {
+					context.Abort()
+					context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
+				} else {
+					context.Request = context.Request.WithContext(newContext(context, &UserInfo{ID: claim.UserId, Number: claim.Number, RoleId: claim.RoleId}))
+					logrus.Info("==============认证成功===========")
+					context.Next()
+				}
 			}
 		}
 	}
