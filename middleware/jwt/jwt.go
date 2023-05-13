@@ -10,6 +10,10 @@ import (
 	"strings"
 )
 
+// Auth
+// @Description: 检验是否携带jwt
+// @auth sinre 2023-05-12 22:15:34
+// @return gin.HandlerFunc
 func Auth() gin.HandlerFunc {
 	return func(context *gin.Context) {
 		logrus.Info("==============开始认证===========")
@@ -34,6 +38,11 @@ func Auth() gin.HandlerFunc {
 	}
 }
 
+// NeedAuth
+// @Description: 要求最低权限
+// @auth sinre 2023-05-12 22:15:50
+// @param roleId
+// @return gin.HandlerFunc
 func NeedAuth(roleId int64) gin.HandlerFunc {
 	return func(context *gin.Context) {
 		logrus.Info("==============开始认证===========")
@@ -61,6 +70,11 @@ func NeedAuth(roleId int64) gin.HandlerFunc {
 	}
 }
 
+// MustAuth
+// @Description: 必须为此权限
+// @auth sinre 2023-05-12 22:16:05
+// @param roleId
+// @return gin.HandlerFunc
 func MustAuth(roleId int64) gin.HandlerFunc {
 	return func(context *gin.Context) {
 		logrus.Info("==============开始认证===========")

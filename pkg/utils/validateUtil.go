@@ -2,8 +2,10 @@ package utils
 
 import (
 	"fmt"
+	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
 	"strings"
+	"time"
 )
 
 var (
@@ -47,4 +49,23 @@ func TranslateOverride(err error) string {
 		}
 	}
 	return errStr.String()
+}
+
+func RegisterValidator() {
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		err := v.RegisterValidation("timing", timing)
+		if err != nil {
+			fmt.Println("success")
+		}
+	}
+}
+
+func timing(fl validator.FieldLevel) bool {
+	if date, ok := fl.Field().Interface().(time.Time); ok {
+		today := time.Now()
+		if today.After(date) {
+			return false
+		}
+	}
+	return true
 }

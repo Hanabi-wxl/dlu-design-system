@@ -5,6 +5,7 @@ import (
 	"github.com/Hanabi-wxl/dlu-design-system/dal/model"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/consts"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/errno"
+	"github.com/Hanabi-wxl/dlu-design-system/pkg/types"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/utils"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/crypto/bcrypt"
@@ -13,7 +14,7 @@ import (
 type ManageServiceImpl struct {
 }
 
-func (ManageServiceImpl) SaveUser(s *UserRequest) *errno.Errno {
+func (ManageServiceImpl) SaveUser(s *types.AddUserRequest) *errno.Errno {
 	if s.IsStu == 1 {
 		err := db.Student.Save(&model.Student{
 			Number:    s.Number,
@@ -78,7 +79,7 @@ func (ManageServiceImpl) UpdateTeacherRole(id, roleId int64) *errno.Errno {
 	return errno.UpdateTeacherRoleErr
 }
 
-func (ManageServiceImpl) UpdateUser(s *UserRequest) *errno.Errno {
+func (ManageServiceImpl) UpdateUser(s *types.UpdateUserRequest) *errno.Errno {
 	if s.IsStu == 1 {
 		ok, err := db.Student.Where(db.Student.ID.Eq(s.ID)).
 			Select(db.Student.Phone, db.Student.Email, db.Student.CollegeID, db.Student.MajorID, db.Student.ClassID).
