@@ -1,9 +1,11 @@
 package handler
 
 import (
+	"github.com/Hanabi-wxl/dlu-design-system/middleware/jwt"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/result"
 	service "github.com/Hanabi-wxl/dlu-design-system/service/user"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 	"net/http"
 )
 
@@ -13,8 +15,8 @@ func GetUserById(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	userService := service.GetUserService()
-	user, err := userService().GetUserById(idRoleRequest.Id, idRoleRequest.IsStu)
+	//userService := service.GetUserService()
+	user, err := service.GetUserService().GetUserById(idRoleRequest.Id, idRoleRequest.IsStu)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
@@ -28,8 +30,8 @@ func GetUserByNumber(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	userService := service.GetUserService()
-	user, err := userService().GetUserByNumber(numberRequest.Number, numberRequest.IsStu)
+	//userService := service.GetUserService()
+	user, err := service.GetUserService().GetUserByNumber(numberRequest.Number, numberRequest.IsStu)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
@@ -43,8 +45,8 @@ func GetUsersByMajor(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	userService := service.GetUserService()
-	users, err := userService().GetUsersByMajor(majorIdRequest.MajorId, majorIdRequest.IsStu,
+	//userService := service.GetUserService()
+	users, err := service.GetUserService().GetUsersByMajor(majorIdRequest.MajorId, majorIdRequest.IsStu,
 		majorIdRequest.Size, majorIdRequest.Num)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
@@ -54,13 +56,15 @@ func GetUsersByMajor(c *gin.Context) {
 }
 
 func GetUsersByCollege(c *gin.Context) {
+	userInfo := jwt.GetUserInfo(c.Request.Context())
+	logrus.Info(userInfo)
 	var collegeIdRequest CollegeIdRequest
 	if err := c.ShouldBindUri(&collegeIdRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	userService := service.GetUserService()
-	users, err := userService().GetUsersByCollege(collegeIdRequest.CollegeId, collegeIdRequest.IsStu,
+	//userService := service.GetUserService()
+	users, err := service.GetUserService().GetUsersByCollege(collegeIdRequest.CollegeId, collegeIdRequest.IsStu,
 		collegeIdRequest.Size, collegeIdRequest.Num)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)

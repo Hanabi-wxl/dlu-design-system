@@ -20,8 +20,7 @@ func GetMajorList(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	list, err := infoService().GetMajorList(page.Size, page.Num)
+	list, err := service.GetInfoService().GetMajorList(page.Size, page.Num)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
@@ -39,8 +38,7 @@ func AddMajor(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	err := infoService().AddMajor(&major)
+	err := service.GetInfoService().AddMajor(&major)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
@@ -63,8 +61,7 @@ func DeleteMajor(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	err2 := infoService().DeleteMajor(id)
+	err2 := service.GetInfoService().DeleteMajor(id)
 	if err2 != nil {
 		c.JSON(http.StatusBadRequest, err2)
 	} else {
@@ -82,8 +79,7 @@ func UpdateMajor(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	err2 := infoService().UpdateMajor(&major)
+	err2 := service.GetInfoService().UpdateMajor(&major)
 	if err2 != nil {
 		c.JSON(http.StatusBadRequest, err2)
 	} else {
@@ -106,8 +102,7 @@ func GetMajor(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	major, err2 := infoService().GetMajor(id)
+	major, err2 := service.GetInfoService().GetMajor(id)
 	if err2 != nil {
 		c.JSON(http.StatusBadRequest, err2)
 	} else {

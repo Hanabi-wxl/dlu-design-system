@@ -14,8 +14,7 @@ import (
 //	@Description: 查询单个学位信息 参数:
 //	@param c
 func GetDegrees(c *gin.Context) {
-	infoService := service.GetInfoService()
-	degrees, err2 := infoService().GetDegrees()
+	degrees, err2 := service.GetInfoService().GetDegrees()
 	if err2 != nil {
 		c.JSON(http.StatusBadRequest, err2)
 	} else {
@@ -38,8 +37,7 @@ func GetDegree(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	degree, err2 := infoService().GetDegree(id)
+	degree, err2 := service.GetInfoService().GetDegree(id)
 	if err2 != nil {
 		c.JSON(http.StatusBadRequest, err2)
 	} else {

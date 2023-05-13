@@ -1,6 +1,9 @@
 package service
 
-var infoService InfoService
+import "sync"
+
+var infoService *InfoService
+var infoServiceOnce sync.Once
 
 type InfoService struct {
 	SchoolService
@@ -12,8 +15,9 @@ type InfoService struct {
 	SectionService
 }
 
-func GetInfoService() func() InfoService {
-	return func() InfoService {
+func GetInfoService() *InfoService {
+	infoServiceOnce.Do(func() {
+		infoService = &InfoService{}
 		schoolService := new(SchoolServiceImpl)
 		collegeService := new(CollegeServiceImpl)
 		majorService := new(MajorServiceImpl)
@@ -29,6 +33,6 @@ func GetInfoService() func() InfoService {
 		infoService.TitleService = titleService
 		infoService.DegreeService = degreeService
 		infoService.SectionService = sectionService
-		return infoService
-	}
+	})
+	return infoService
 }

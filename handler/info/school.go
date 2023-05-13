@@ -19,8 +19,7 @@ func GetSchoolList(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	list, err := infoService().GetSchoolList(page.Size, page.Num)
+	list, err := service.GetInfoService().GetSchoolList(page.Size, page.Num)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
@@ -38,8 +37,7 @@ func AddSchool(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	err := infoService().AddSchool(&school)
+	err := service.GetInfoService().AddSchool(&school)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
@@ -62,8 +60,7 @@ func DeleteSchool(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	err2 := infoService().DeleteSchool(id)
+	err2 := service.GetInfoService().DeleteSchool(id)
 	if err2 != nil {
 		c.JSON(http.StatusBadRequest, err2)
 	} else {
@@ -81,8 +78,7 @@ func UpdateSchool(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	err2 := infoService().UpdateSchool(&school)
+	err2 := service.GetInfoService().UpdateSchool(&school)
 	if err2 != nil {
 		c.JSON(http.StatusBadRequest, err2)
 	} else {
@@ -105,8 +101,7 @@ func GetSchool(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	school, err2 := infoService().GetSchool(id)
+	school, err2 := service.GetInfoService().GetSchool(id)
 	if err2 != nil {
 		c.JSON(http.StatusBadRequest, err2)
 	} else {

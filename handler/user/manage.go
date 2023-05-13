@@ -16,8 +16,8 @@ func AddUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(msg))
 		return
 	}
-	userService := service.GetUserService()
-	errno := userService().SaveUser(&saveUserReq)
+	//userService := service.GetUserService()
+	errno := service.GetUserService().SaveUser(&saveUserReq)
 	if errno != nil {
 		c.JSON(http.StatusBadRequest, errno)
 	} else {
@@ -31,8 +31,8 @@ func ResetPassword(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-	userService := service.GetUserService()
-	errno := userService().ResetPassword(idReq.Id, idReq.IsStu)
+	//userService := service.GetUserService()
+	errno := service.GetUserService().ResetPassword(idReq.Id, idReq.IsStu)
 	if errno != nil {
 		c.JSON(http.StatusBadRequest, errno)
 	} else {
@@ -46,8 +46,8 @@ func UpdateTeacherRole(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-	userService := service.GetUserService()
-	errno := userService().UpdateTeacherRole(req.Id, req.RoleId)
+	//userService := service.GetUserService()
+	errno := service.GetUserService().UpdateTeacherRole(req.Id, req.RoleId)
 	if errno != nil {
 		c.JSON(http.StatusBadRequest, errno)
 	} else {
@@ -61,8 +61,8 @@ func UpdateUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-	userService := service.GetUserService()
-	errno := userService().UpdateUser(&updateUserReq)
+	//userService := service.GetUserService()
+	errno := service.GetUserService().UpdateUser(&updateUserReq)
 	if errno != nil {
 		c.JSON(http.StatusBadRequest, errno)
 	} else {
@@ -76,8 +76,8 @@ func DeleteUser(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
-	userService := service.GetUserService()
-	errno := userService().DeleteUser(idRoleReq.Id, idRoleReq.IsStu)
+	//userService := service.GetUserService()
+	errno := service.GetUserService().DeleteUser(idRoleReq.Id, idRoleReq.IsStu)
 	if errno != nil {
 		c.JSON(http.StatusBadRequest, errno)
 	} else {

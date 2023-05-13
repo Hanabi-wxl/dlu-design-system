@@ -17,7 +17,7 @@
 │          
 ├─handler 处理层
 │  │  
-│  └─info 信息模块
+│  ├─info 信息模块
 │  │      
 │  └─user 用户模块
 │      
@@ -25,7 +25,7 @@
 │     
 ├─middleware 中间件
 │  │  
-│  └─cors 跨域
+│  ├─cors 跨域
 │  │      
 │  ├─jwt 鉴权
 │  │      
@@ -54,7 +54,7 @@
 │  
 └─service 服务层
    │  
-   └─info 信息模块
+   ├─info 信息模块
    │      
    ├─log 日志模块
    │      

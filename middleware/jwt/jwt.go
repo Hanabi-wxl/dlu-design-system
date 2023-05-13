@@ -1,6 +1,7 @@
 package jwt
 
 import (
+	"context"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/errno"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/result"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/utils"
@@ -9,6 +10,34 @@ import (
 	"net/http"
 	"strings"
 )
+
+var key int
+
+type UserInfo struct {
+	ID     int64
+	Number string
+	RoleId int64
+}
+
+// newContext
+// @Description: 创建context储存数据
+// @auth sinre 2023-05-13 17:24:49
+// @param ctx
+// @param claims
+// @return context.Context
+func newContext(ctx context.Context, claims *UserInfo) context.Context {
+	return context.WithValue(ctx, key, claims)
+}
+
+// GetUserInfo
+// @Description: 获取context保存的数据
+// @auth sinre 2023-05-13 17:25:06
+// @param ctx
+// @return *UserInfo
+func GetUserInfo(ctx context.Context) *UserInfo {
+	u, _ := ctx.Value(key).(*UserInfo)
+	return u
+}
 
 // Auth
 // @Description: 检验是否携带jwt
@@ -28,9 +57,7 @@ func Auth() gin.HandlerFunc {
 				context.Abort()
 				context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
 			} else {
-				context.Set("userId", claim.Id)
-				context.Set("roleId", claim.RoleId)
-				context.Set("number", claim.Number)
+				context.Request = context.Request.WithContext(newContext(context, &UserInfo{ID: claim.UserId, Number: claim.Number, RoleId: claim.RoleId}))
 				logrus.Info("==============认证成功===========")
 				context.Next()
 			}
@@ -60,9 +87,7 @@ func NeedAuth(roleId int64) gin.HandlerFunc {
 				context.Abort()
 				context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
 			} else {
-				context.Set("userId", claim.Id)
-				context.Set("roleId", claim.RoleId)
-				context.Set("number", claim.Number)
+				context.Request = context.Request.WithContext(newContext(context, &UserInfo{ID: claim.UserId, Number: claim.Number, RoleId: claim.RoleId}))
 				logrus.Info("==============认证成功===========")
 				context.Next()
 			}
@@ -92,9 +117,7 @@ func MustAuth(roleId int64) gin.HandlerFunc {
 				context.Abort()
 				context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
 			} else {
-				context.Set("userId", claim.Id)
-				context.Set("roleId", claim.RoleId)
-				context.Set("number", claim.Number)
+				context.Request = context.Request.WithContext(newContext(context, &UserInfo{ID: claim.UserId, Number: claim.Number, RoleId: claim.RoleId}))
 				logrus.Info("==============认证成功===========")
 				context.Next()
 			}

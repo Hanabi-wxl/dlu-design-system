@@ -1,6 +1,9 @@
 package service
 
-var userService UserService
+import "sync"
+
+var userService *UserService
+var userServiceOnce sync.Once
 
 type UserService struct {
 	InfoService
@@ -9,8 +12,9 @@ type UserService struct {
 	RoleService
 }
 
-func GetUserService() func() UserService {
-	return func() UserService {
+func GetUserService() *UserService {
+	userServiceOnce.Do(func() {
+		userService = &UserService{}
 		infoService := new(InfoServiceImpl)
 		loginService := new(LoginServiceImpl)
 		roleService := new(RoleServiceImpl)
@@ -20,6 +24,6 @@ func GetUserService() func() UserService {
 		userService.RoleService = roleService
 		userService.LoginService = loginService
 		userService.ManageService = manageService
-		return userService
-	}
+	})
+	return userService
 }
