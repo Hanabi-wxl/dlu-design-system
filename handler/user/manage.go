@@ -2,6 +2,7 @@ package handler
 
 import (
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/result"
+	"github.com/Hanabi-wxl/dlu-design-system/pkg/types"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/utils"
 	service "github.com/Hanabi-wxl/dlu-design-system/service/user"
 	"github.com/gin-gonic/gin"
@@ -9,7 +10,7 @@ import (
 )
 
 func AddUser(c *gin.Context) {
-	var saveUserReq service.UserRequest
+	var saveUserReq types.AddUserRequest
 	if err := c.ShouldBindJSON(&saveUserReq); err != nil {
 		msg := utils.TranslateOverride(err)
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(msg))
@@ -55,7 +56,7 @@ func UpdateTeacherRole(c *gin.Context) {
 }
 
 func UpdateUser(c *gin.Context) {
-	var updateUserReq service.UserRequest
+	var updateUserReq types.UpdateUserRequest
 	if err := c.ShouldBindJSON(&updateUserReq); err != nil {
 		c.JSON(http.StatusBadRequest, err.Error())
 		return

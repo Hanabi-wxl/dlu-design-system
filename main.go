@@ -6,6 +6,7 @@ import (
 	"github.com/Hanabi-wxl/dlu-design-system/dal"
 	"github.com/Hanabi-wxl/dlu-design-system/middleware/redis"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/logger"
+	"github.com/Hanabi-wxl/dlu-design-system/pkg/utils"
 	"github.com/Hanabi-wxl/dlu-design-system/router"
 	"gorm.io/driver/mysql"
 	"gorm.io/gen"
@@ -28,6 +29,8 @@ func initDeps() {
 	dal.Init()
 	// 加载redis
 	redis.Init()
+	// 加载自定义参数校验
+	utils.RegisterValidator()
 	// 加载路由
 	router.Init()
 }
