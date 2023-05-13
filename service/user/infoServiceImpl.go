@@ -2,8 +2,10 @@ package service
 
 import (
 	"github.com/Hanabi-wxl/dlu-design-system/dal/db"
+	"github.com/Hanabi-wxl/dlu-design-system/dal/model"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/errno"
 	"github.com/sirupsen/logrus"
+	"sync"
 )
 
 type InfoServiceImpl struct {
@@ -12,15 +14,17 @@ type InfoServiceImpl struct {
 //在实现类中写一个user的struct
 
 type User struct {
-	ID        int64   `json:"id"`
-	Number    string  `json:"number"`
-	Name      string  `json:"name"`
-	Phone     *string `json:"phone"`
-	Email     *string `json:"email"`
-	CollegeID int64   `json:"college_id"`
-	MajorID   int64   `json:"major_id"`
-	//ClassID   int64   `json:"class_id"`
-	IsStu int8 `json:"is_stu"`
+	ID          int64   `json:"id"`
+	Number      string  `json:"number"`
+	Name        string  `json:"name"`
+	Phone       *string `json:"phone"`
+	Email       *string `json:"email"`
+	CollegeID   int64   `json:"college_id"`
+	CollegeName string  `json:"college_name"`
+	MajorID     int64   `json:"major_id"`
+	MajorName   string  `json:"major_name"`
+	ClassID     int64   `json:"class_id"`
+	IsStu       int8    `json:"is_stu"`
 }
 
 // GetUserById
@@ -115,38 +119,62 @@ func (InfoServiceImpl) GetUsersByMajor(majorId int64, isStu int8, size, num int)
 			logrus.Error(err)
 			return nil, nil
 		}
+
+		var wg sync.WaitGroup
+		wg.Add(len(stus))
 		for _, val := range stus {
-			u := User{
-				ID:        val.ID,
-				Number:    val.Number,
-				Name:      val.Name,
-				Phone:     val.Phone,
-				Email:     val.Email,
-				CollegeID: val.CollegeID,
-				MajorID:   val.MajorID,
-				IsStu:     1,
-			}
-			Us = append(Us, u)
+			go func(val *model.Student) {
+				defer wg.Done()
+				major, err1 := db.Major.Where(db.Major.ID.Eq(val.MajorID)).First()
+				if err1 != nil {
+					logrus.Error(err1)
+				}
+				u := User{
+					ID:        val.ID,
+					Number:    val.Number,
+					Name:      val.Name,
+					Phone:     val.Phone,
+					Email:     val.Email,
+					CollegeID: val.CollegeID,
+					MajorID:   val.MajorID,
+					IsStu:     1,
+					MajorName: major.Name,
+				}
+				Us = append(Us, u)
+			}(val)
 		}
+		wg.Wait()
 	} else {
 		teachers, err := db.Teacher.Where(db.Teacher.MajorID.Eq(majorId)).Limit(size).Offset(size * (num - 1)).Find()
 		if err != nil {
 			logrus.Error(err)
 			return nil, nil
 		}
+
+		var wg sync.WaitGroup
+		wg.Add(len(teachers))
 		for _, val := range teachers {
-			u := User{
-				ID:        val.ID,
-				Number:    val.Number,
-				Name:      val.Name,
-				Phone:     val.Phone,
-				Email:     val.Email,
-				CollegeID: val.CollegeID,
-				MajorID:   val.MajorID,
-				IsStu:     1,
-			}
-			Us = append(Us, u)
+			go func(val *model.Teacher) {
+				defer wg.Done()
+				major, err1 := db.Major.Where(db.Major.ID.Eq(val.MajorID)).First()
+				if err1 != nil {
+					logrus.Error(err1)
+				}
+				u := User{
+					ID:        val.ID,
+					Number:    val.Number,
+					Name:      val.Name,
+					Phone:     val.Phone,
+					Email:     val.Email,
+					CollegeID: val.CollegeID,
+					MajorID:   val.MajorID,
+					IsStu:     0,
+					MajorName: major.Name,
+				}
+				Us = append(Us, u)
+			}(val)
 		}
+		wg.Wait()
 	}
 	return &Us, nil
 }
@@ -159,38 +187,60 @@ func (InfoServiceImpl) GetUsersByCollege(collegeId int64, isStu int8, size, num 
 			logrus.Error(err)
 			return nil, nil
 		}
+		var wg sync.WaitGroup
+		wg.Add(len(stus))
 		for _, val := range stus {
-			u := User{
-				ID:        val.ID,
-				Number:    val.Number,
-				Name:      val.Name,
-				Phone:     val.Phone,
-				Email:     val.Email,
-				CollegeID: val.CollegeID,
-				MajorID:   val.MajorID,
-				IsStu:     1,
-			}
-			Us = append(Us, u)
+			go func(val *model.Student) {
+				defer wg.Done()
+				major, err1 := db.College.Where(db.College.ID.Eq(val.CollegeID)).First()
+				if err1 != nil {
+					logrus.Error(err1)
+				}
+				u := User{
+					ID:          val.ID,
+					Number:      val.Number,
+					Name:        val.Name,
+					Phone:       val.Phone,
+					Email:       val.Email,
+					CollegeID:   val.CollegeID,
+					MajorID:     val.MajorID,
+					IsStu:       1,
+					CollegeName: major.Name,
+				}
+				Us = append(Us, u)
+			}(val)
 		}
+		wg.Wait()
 	} else {
 		teachers, err := db.Teacher.Where(db.Teacher.CollegeID.Eq(collegeId)).Limit(size).Offset(size * (num - 1)).Find()
 		if err != nil {
 			logrus.Error(err)
 			return nil, nil
 		}
+		var wg sync.WaitGroup
+		wg.Add(len(teachers))
 		for _, val := range teachers {
-			u := User{
-				ID:        val.ID,
-				Number:    val.Number,
-				Name:      val.Name,
-				Phone:     val.Phone,
-				Email:     val.Email,
-				CollegeID: val.CollegeID,
-				MajorID:   val.MajorID,
-				IsStu:     1,
-			}
-			Us = append(Us, u)
+			go func(val *model.Teacher) {
+				defer wg.Done()
+				college, err1 := db.College.Where(db.College.ID.Eq(val.CollegeID)).First()
+				if err1 != nil {
+					logrus.Error(err1)
+				}
+				u := User{
+					ID:          val.ID,
+					Number:      val.Number,
+					Name:        val.Name,
+					Phone:       val.Phone,
+					Email:       val.Email,
+					CollegeID:   val.CollegeID,
+					MajorID:     val.MajorID,
+					IsStu:       0,
+					CollegeName: college.Name,
+				}
+				Us = append(Us, u)
+			}(val)
 		}
+		wg.Wait()
 	}
 	return &Us, nil
 }
