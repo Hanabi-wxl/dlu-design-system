@@ -10,8 +10,8 @@ import (
 
 func CheckLoginRole(c *gin.Context) {
 	number := c.Param("number")
-	userService := service.GetUserService()
-	role, errno := userService().CheckLoginRole(number)
+	//userService := service.GetUserService()
+	role, errno := service.GetUserService().CheckLoginRole(number)
 	if errno != nil {
 		c.JSON(http.StatusBadRequest, errno)
 	} else {
@@ -25,8 +25,8 @@ func StudentLogin(c *gin.Context) {
 		msg := utils.TranslateOverride(err)
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(msg))
 	}
-	userService := service.GetUserService()
-	res, errno := userService().StudentLogin(userLoginReq.Number, userLoginReq.Password)
+	//userService := service.GetUserService()
+	res, errno := service.GetUserService().StudentLogin(userLoginReq.Number, userLoginReq.Password)
 	if errno != nil {
 		c.JSON(http.StatusBadRequest, errno)
 	} else {
@@ -40,8 +40,8 @@ func TeacherLogin(c *gin.Context) {
 		msg := utils.TranslateOverride(err)
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(msg))
 	}
-	userService := service.GetUserService()
-	res, errno := userService().TeacherLogin(userLoginReq.Number, userLoginReq.Password)
+	//userService := service.GetUserService()
+	res, errno := service.GetUserService().TeacherLogin(userLoginReq.Number, userLoginReq.Password)
 	if errno != nil {
 		c.JSON(http.StatusBadRequest, errno)
 	} else {

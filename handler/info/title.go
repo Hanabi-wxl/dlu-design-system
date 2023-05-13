@@ -14,8 +14,7 @@ import (
 //	@Description: 查询所有职称信息 参数:
 //	@param c
 func GetTitles(c *gin.Context) {
-	infoService := service.GetInfoService()
-	titles, err2 := infoService().GetTitles()
+	titles, err2 := service.GetInfoService().GetTitles()
 	if err2 != nil {
 		c.JSON(http.StatusBadRequest, err2)
 	} else {
@@ -38,8 +37,7 @@ func GetTitle(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	title, err2 := infoService().GetTitle(id)
+	title, err2 := service.GetInfoService().GetTitle(id)
 	if err2 != nil {
 		c.JSON(http.StatusBadRequest, err2)
 	} else {

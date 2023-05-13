@@ -20,8 +20,7 @@ func GetClassList(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	list, err := infoService().GetClassList(page.Size, page.Num)
+	list, err := service.GetInfoService().GetClassList(page.Size, page.Num)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
@@ -39,8 +38,7 @@ func AddClass(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	err := infoService().AddClass(&class)
+	err := service.GetInfoService().AddClass(&class)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
@@ -63,8 +61,7 @@ func DeleteClass(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	err2 := infoService().DeleteClass(id)
+	err2 := service.GetInfoService().DeleteClass(id)
 	if err2 != nil {
 		c.JSON(http.StatusBadRequest, err2)
 	} else {
@@ -82,8 +79,7 @@ func UpdateClass(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	err2 := infoService().UpdateClass(&class)
+	err2 := service.GetInfoService().UpdateClass(&class)
 	if err2 != nil {
 		c.JSON(http.StatusBadRequest, err2)
 	} else {
@@ -107,8 +103,7 @@ func GetClass(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	infoService := service.GetInfoService()
-	class, err2 := infoService().GetClass(id)
+	class, err2 := service.GetInfoService().GetClass(id)
 	if err2 != nil {
 		c.JSON(http.StatusBadRequest, err2)
 	} else {
