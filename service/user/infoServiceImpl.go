@@ -24,6 +24,7 @@ type User struct {
 	MajorID     int64   `json:"major_id"`
 	MajorName   string  `json:"major_name"`
 	ClassID     int64   `json:"class_id"`
+	RoleId      int     `json:"role_id"`
 	IsStu       int8    `json:"is_stu"`
 }
 
@@ -52,6 +53,7 @@ func (InfoServiceImpl) GetUserById(id int64, isStu int8) (*User, *errno.Errno) {
 			CollegeID: stu.CollegeID,
 			MajorID:   stu.MajorID,
 			IsStu:     1,
+			RoleId:    1,
 		}
 	} else {
 		teacher, err := db.Teacher.Where(db.Teacher.ID.Eq(id)).Take()
@@ -68,6 +70,7 @@ func (InfoServiceImpl) GetUserById(id int64, isStu int8) (*User, *errno.Errno) {
 			CollegeID: teacher.CollegeID,
 			MajorID:   teacher.MajorID,
 			IsStu:     0,
+			RoleId:    int(teacher.RoleID),
 		}
 	}
 	return &u, nil
@@ -90,6 +93,7 @@ func (InfoServiceImpl) GetUserByNumber(number string, isStu int8) (*User, *errno
 			CollegeID: stu.CollegeID,
 			MajorID:   stu.MajorID,
 			IsStu:     1,
+			RoleId:    1,
 		}
 	} else {
 		teacher, err := db.Teacher.Where(db.Teacher.Number.Eq(number)).Take()
@@ -106,6 +110,7 @@ func (InfoServiceImpl) GetUserByNumber(number string, isStu int8) (*User, *errno
 			CollegeID: teacher.CollegeID,
 			MajorID:   teacher.MajorID,
 			IsStu:     0,
+			RoleId:    int(teacher.RoleID),
 		}
 	}
 	return &u, nil
@@ -139,6 +144,7 @@ func (InfoServiceImpl) GetUsersByMajor(majorId int64, isStu int8, size, num int)
 					MajorID:   val.MajorID,
 					IsStu:     1,
 					MajorName: major.Name,
+					RoleId:    1,
 				}
 				Us = append(Us, u)
 			}(val)
@@ -170,6 +176,7 @@ func (InfoServiceImpl) GetUsersByMajor(majorId int64, isStu int8, size, num int)
 					MajorID:   val.MajorID,
 					IsStu:     0,
 					MajorName: major.Name,
+					RoleId:    int(val.RoleID),
 				}
 				Us = append(Us, u)
 			}(val)
@@ -206,6 +213,7 @@ func (InfoServiceImpl) GetUsersByCollege(collegeId int64, isStu int8, size, num 
 					MajorID:     val.MajorID,
 					IsStu:       1,
 					CollegeName: major.Name,
+					RoleId:      1,
 				}
 				Us = append(Us, u)
 			}(val)
@@ -236,6 +244,7 @@ func (InfoServiceImpl) GetUsersByCollege(collegeId int64, isStu int8, size, num 
 					MajorID:     val.MajorID,
 					IsStu:       0,
 					CollegeName: college.Name,
+					RoleId:      int(val.RoleID),
 				}
 				Us = append(Us, u)
 			}(val)
