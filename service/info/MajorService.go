@@ -11,4 +11,5 @@ type MajorService interface {
 	DeleteMajor(id int64) *errno.Errno
 	UpdateMajor(major *model.Major) *errno.Errno
 	GetMajor(id int64) (*model.Major, *errno.Errno)
+	GetMajorListByCollegeId(collegeId int64) ([]*model.Major, *errno.Errno)
 }

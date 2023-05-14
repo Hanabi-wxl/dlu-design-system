@@ -6,6 +6,7 @@ import (
 
 	"github.com/Hanabi-wxl/dlu-design-system/dal/model"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/result"
+	"github.com/Hanabi-wxl/dlu-design-system/pkg/types"
 	service "github.com/Hanabi-wxl/dlu-design-system/service/info"
 	"github.com/gin-gonic/gin"
 )
@@ -107,5 +108,28 @@ func GetMajor(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, err2)
 	} else {
 		c.JSON(http.StatusOK, result.NewOkResult(major))
+	}
+}
+
+// GetMajorListByCollegeId
+//
+//	@Description: 分页查询专业 参数: CollegeId
+//	@param c
+func GetMajorListByCollegeId(c *gin.Context) {
+	var collegeId types.CollegeId
+	if err := c.ShouldBindUri(&collegeId); err != nil {
+		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
+		return
+	}
+	id, err := strconv.ParseInt(collegeId.CollegeId, 10, 64)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
+		return
+	}
+	list, err2 := service.GetInfoService().GetMajorListByCollegeId(id)
+	if err2 != nil {
+		c.JSON(http.StatusBadRequest, err2)
+	} else {
+		c.JSON(http.StatusOK, result.NewOkResult(list))
 	}
 }

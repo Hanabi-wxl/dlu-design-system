@@ -40,3 +40,7 @@ type PageResp struct {
 	PageTotal int64 `json:"page_total"` // 总页数
 	Array     any   `json:"array"`
 }
+
+type CollegeId struct {
+	CollegeId string `uri:"collegeId" binding:"required"`
+}
