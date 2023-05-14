@@ -32,3 +32,11 @@ type NumberRequest struct {
 	Number string `uri:"number" binding:"required"`
 	IsStu  int8   `uri:"isStu" binding:"required,max=2,min=1"`
 }
+
+// PageResp
+// @Description: 分页响应
+type PageResp struct {
+	ItemTotal int64 `json:"item_total"` // 总元素数
+	PageTotal int64 `json:"page_total"` // 总页数
+	Array     any   `json:"array"`
+}
