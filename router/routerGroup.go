@@ -20,12 +20,15 @@ func Init() {
 	gin.DefaultWriter = io.MultiWriter(os.Stdout, logger.Logger)
 	// 配置跨域 限流
 	engine.Use(cors.Cors(), limiter.Limiter())
+
 	// 总路由
 	api := engine.Group("/api")
 	// 注册用户模块路由
 	RegisterUserRouter(api)
 	// 注册信息模块路由
 	RegisterInfoRouter(api)
+	// 注册日志路由
+	RegisterLogRouter(api)
 	err := engine.Run()
 	if err != nil {
 		logrus.Fatal("服务启动失败")
