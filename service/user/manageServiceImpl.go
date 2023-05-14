@@ -135,6 +135,24 @@ func (ManageServiceImpl) DeleteUser(id int64, isStu int8) *errno.Errno {
 	return errno.DeleteUserErr
 }
 
+func (ManageServiceImpl) ManagerList(roleId int64) (*[]*model.Teacher, *errno.Errno) {
+	if teachers, err := db.Teacher.Where(db.Teacher.RoleID.Eq(roleId)).Omit(db.Teacher.Password).Find(); err != nil {
+		return nil, errno.NewErrno(errno.DbErrorCode, err.Error())
+	} else {
+		return &teachers, nil
+	}
+}
+
+func (ManageServiceImpl) DeleteManager(id int64) *errno.Errno {
+	if ok, err := db.Teacher.Where(db.Teacher.ID.Eq(id)).Omit(db.Teacher.Password).Update(db.Teacher.RoleID, consts.TeacherPermission); err != nil {
+		return errno.NewErrno(errno.DbErrorCode, err.Error())
+	} else if ok.RowsAffected != 1 {
+		return errno.DeleteManagerErr
+	} else {
+		return nil
+	}
+}
+
 // encodePassword 加密
 func encodePassword(password string) string {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password), consts.PassWordCost)

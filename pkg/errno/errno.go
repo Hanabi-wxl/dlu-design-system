@@ -21,6 +21,7 @@ var (
 	UpdateUserErr        = &Errno{UpdateUserErrCode, UpdateUserErrMsg}
 	DeleteRoleErr        = &Errno{DeleteRoleErrCode, DeleteRoleErrMsg}
 	UpdateRoleErr        = &Errno{UpdateRoleErrCode, UpdateRoleErrMsg}
+	DeleteManagerErr     = &Errno{DeleteManagerErrCode, DeleteManagerErrMsg}
 )
 
 const (
@@ -37,6 +38,7 @@ const (
 	PasswordIncorrectErrMsg  = "用户名或密码错误"
 	UnAuthorizationErrCode   = 300006
 	UnAuthorizationErrMsg    = "登陆已过期"
+	NoPermissionErrMsg       = "无权限"
 	ResetPasswordErrCode     = 300007
 	ResetPasswordErrMsg      = "修改密码失败"
 	UpdateTeacherRoleErrCode = 300008
@@ -49,6 +51,8 @@ const (
 	DeleteRoleErrMsg         = "删除角色失败"
 	UpdateRoleErrCode        = 30012
 	UpdateRoleErrMsg         = "更新角色失败"
+	DeleteManagerErrCode     = 30013
+	DeleteManagerErrMsg      = "删除管理员失败"
 )
 
 const (

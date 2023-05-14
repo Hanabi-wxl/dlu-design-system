@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/Hanabi-wxl/dlu-design-system/dal/model"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/errno"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/types"
 )
@@ -38,4 +39,17 @@ type ManageService interface {
 	// @param isStu 1学生 2教师
 	// @return *errno.Errno
 	DeleteUser(id int64, isStu int8) *errno.Errno
+
+	// ManagerList
+	// @Description: 获取管理员名单
+	// @param roleId 角色Id
+	// @return *[]*model.Teacher 管理员列表
+	// @return *errno.Errno
+	ManagerList(roleId int64) (*[]*model.Teacher, *errno.Errno)
+
+	// DeleteManager
+	// @Description: 删除管理员权限
+	// @param id 用户id
+	// @return *errno.Errno
+	DeleteManager(id int64) *errno.Errno
 }
