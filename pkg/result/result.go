@@ -39,6 +39,6 @@ func NewFailedResult(msg string) Result {
 }
 
 const (
-	DefaultOkCode = 10000     // 默认成功状态码
-	DefaultOkMsg  = "success" // 默认成功信息
+	DefaultOkCode = 10000  // 默认成功状态码
+	DefaultOkMsg  = "请求成功" // 默认成功信息
 )

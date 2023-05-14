@@ -96,7 +96,7 @@ func NeedAuth(roleId int64) gin.HandlerFunc {
 					context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
 				} else if roleId > claim.RoleId {
 					context.Abort()
-					context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
+					context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.NoPermissionErrMsg, nil))
 				} else {
 					context.Request = context.Request.WithContext(newContext(context, &UserInfo{ID: claim.UserId, Number: claim.Number, RoleId: claim.RoleId}))
 					logrus.Info("==============认证成功===========")
@@ -132,7 +132,7 @@ func MustAuth(roleId int64) gin.HandlerFunc {
 					context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
 				} else if roleId != claim.RoleId {
 					context.Abort()
-					context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.UnAuthorizationErrMsg, nil))
+					context.JSON(http.StatusUnauthorized, result.NewResult(errno.UnAuthorizationErrCode, errno.NoPermissionErrMsg, nil))
 				} else {
 					context.Request = context.Request.WithContext(newContext(context, &UserInfo{ID: claim.UserId, Number: claim.Number, RoleId: claim.RoleId}))
 					logrus.Info("==============认证成功===========")

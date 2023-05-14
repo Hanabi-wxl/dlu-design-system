@@ -25,6 +25,8 @@ func RegisterUserRouter(engin *gin.RouterGroup) {
 		manageGroup.PUT("", handler.UpdateUser)
 		manageGroup.DELETE("/:id/:isStu", handler.DeleteUser)
 	}
+	user.GET("/manager/:roleId", jwt.NeedAuth(consts.SchoolPermission), handler.GetManagerList)
+	user.PUT("/manager/:id", jwt.NeedAuth(consts.SchoolPermission), handler.DeleteManager)
 
 	user.GET("/roles", jwt.NeedAuth(consts.SchoolPermission), handler.GetRoleList)
 	user.POST("/role", jwt.NeedAuth(consts.SchoolPermission), handler.AddRole)

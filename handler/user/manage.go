@@ -84,3 +84,30 @@ func DeleteUser(c *gin.Context) {
 		c.JSON(http.StatusOK, result.Ok())
 	}
 }
+
+func GetManagerList(c *gin.Context) {
+	var roleIdReq types.RoleIdRequest
+	if err := c.ShouldBindUri(&roleIdReq); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+	if managerList, errno := service.GetUserService().ManagerList(roleIdReq.RoleId); errno != nil {
+		c.JSON(http.StatusBadRequest, errno)
+	} else {
+		c.JSON(http.StatusOK, result.NewOkResult(managerList))
+	}
+}
+
+func DeleteManager(c *gin.Context) {
+	var idReq types.IdRequest
+	if err := c.ShouldBindUri(&idReq); err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+	if errno := service.GetUserService().DeleteManager(idReq.Id); errno != nil {
+		c.JSON(http.StatusBadRequest, errno)
+	} else {
+		c.JSON(http.StatusOK, result.Ok())
+	}
+
+}
