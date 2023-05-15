@@ -27,8 +27,8 @@ func RegisterInfoRouter(engin *gin.RouterGroup) {
 		info.DELETE("/major/:id", jwt.NeedAuth(consts.SchoolPermission), handler.DeleteMajor)
 		info.PUT("/major", jwt.NeedAuth(consts.SchoolPermission), handler.UpdateMajor)
 		info.GET("/major/:id", handler.GetMajor)
-		info.GET("/info/majors/college/:collegeId", handler.GetMajorListByCollegeId)
-		
+		info.GET("/majors/college/:collegeId", handler.GetMajorListByCollegeId)
+
 		info.GET("/classes/:size/:num", handler.GetClassList)
 		info.POST("/class", jwt.NeedAuth(consts.SchoolPermission), handler.AddClass)
 		info.DELETE("/class/:id", jwt.NeedAuth(consts.SchoolPermission), handler.DeleteClass)

@@ -56,7 +56,7 @@ func (c MajorServiceImpl) GetMajor(id int64) (*model.Major, *errno.Errno) {
 }
 
 func (c MajorServiceImpl) GetMajorListByCollegeId(collegeId int64) ([]*model.Major, *errno.Errno) {
-	majors, err := db.Major.Where(db.College.ID.Eq(collegeId)).Find()
+	majors, err := db.Major.Where(db.Major.CollegeID.Eq(collegeId)).Find()
 	if err != nil {
 		logrus.Error(err)
 		return nil, errno.NewErrno(errno.DbErrorCode, err.Error())
