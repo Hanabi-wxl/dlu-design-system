@@ -1,13 +1,11 @@
 package handler
 
 import (
-	"net/http"
-	"strconv"
-
-	"github.com/Hanabi-wxl/dlu-design-system/dal/model"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/result"
+	"github.com/Hanabi-wxl/dlu-design-system/pkg/types"
 	service "github.com/Hanabi-wxl/dlu-design-system/service/info"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 // GetClassList
@@ -15,12 +13,12 @@ import (
 //	@Description: 分页查询班级 参数: PageRequest
 //	@param c
 func GetClassList(c *gin.Context) {
-	var page PageRequest
-	if err := c.ShouldBindUri(&page); err != nil {
+	var query types.ClassQueryReq
+	if err := c.ShouldBindUri(&query); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	list, err := service.GetInfoService().GetClassList(page.Size, page.Num)
+	list, err := service.GetInfoService().GetClassList(&query)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
@@ -33,7 +31,7 @@ func GetClassList(c *gin.Context) {
 //	@Description: 新增班级信息 参数: class (JSON)
 //	@param c
 func AddClass(c *gin.Context) {
-	var class model.Class
+	var class types.ClassReq
 	if err := c.ShouldBindJSON(&class); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
@@ -51,19 +49,14 @@ func AddClass(c *gin.Context) {
 //	@Description: 删除班级信息 参数:IdRequest
 //	@param c
 func DeleteClass(c *gin.Context) {
-	var idRequest IdRequest
+	var idRequest types.IdRequest
 	if err := c.ShouldBindUri(&idRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	id, err := strconv.ParseInt(idRequest.Id, 10, 64)
+	err := service.GetInfoService().DeleteClass(idRequest.Id)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
-		return
-	}
-	err2 := service.GetInfoService().DeleteClass(id)
-	if err2 != nil {
-		c.JSON(http.StatusBadRequest, err2)
+		c.JSON(http.StatusBadRequest, err)
 	} else {
 		c.JSON(http.StatusOK, result.Ok())
 	}
@@ -74,7 +67,7 @@ func DeleteClass(c *gin.Context) {
 //	@Description: 更新班级信息 参数: class (JSON)
 //	@param c
 func UpdateClass(c *gin.Context) {
-	var class model.Class
+	var class types.ClassReq
 	if err := c.ShouldBindJSON(&class); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
@@ -93,19 +86,14 @@ func UpdateClass(c *gin.Context) {
 //	@Description: 根据id查询单个班级信息 参数:IdRequest
 //	@param c
 func GetClass(c *gin.Context) {
-	var idRequest IdRequest
+	var idRequest types.IdRequest
 	if err := c.ShouldBindUri(&idRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	id, err := strconv.ParseInt(idRequest.Id, 10, 64)
+	class, err := service.GetInfoService().GetClass(idRequest.Id)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
-		return
-	}
-	class, err2 := service.GetInfoService().GetClass(id)
-	if err2 != nil {
-		c.JSON(http.StatusBadRequest, err2)
+		c.JSON(http.StatusBadRequest, err)
 	} else {
 		c.JSON(http.StatusOK, result.NewOkResult(class))
 	}

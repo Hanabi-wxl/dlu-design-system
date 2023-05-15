@@ -49,6 +49,8 @@ type PageResp struct {
 	Array     any   `json:"array"`
 }
 
-type CollegeId struct {
-	CollegeId string `uri:"collegeId" binding:"required"`
+// CollegeIdReq
+// @Description: 学院id
+type CollegeIdReq struct {
+	CollegeId int64
 }

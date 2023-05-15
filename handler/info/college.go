@@ -1,13 +1,11 @@
 package handler
 
 import (
-	"net/http"
-	"strconv"
-
-	"github.com/Hanabi-wxl/dlu-design-system/dal/model"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/result"
+	"github.com/Hanabi-wxl/dlu-design-system/pkg/types"
 	service "github.com/Hanabi-wxl/dlu-design-system/service/info"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 // GetCollegeList
@@ -15,7 +13,7 @@ import (
 //	@Description: 分页查询学院 参数: PageRequest
 //	@param c
 func GetCollegeList(c *gin.Context) {
-	var page PageRequest
+	var page types.PageRequest
 	if err := c.ShouldBindUri(&page); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
@@ -33,7 +31,7 @@ func GetCollegeList(c *gin.Context) {
 //	@Description: 新增学院信息 参数: college (JSON)
 //	@param c
 func AddCollege(c *gin.Context) {
-	var college model.College
+	var college types.CollegeReq
 	if err := c.ShouldBindJSON(&college); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
@@ -51,19 +49,14 @@ func AddCollege(c *gin.Context) {
 //	@Description: 删除学院信息 参数: IdRequest
 //	@param c
 func DeleteCollege(c *gin.Context) {
-	var idRequest IdRequest
+	var idRequest types.IdRequest
 	if err := c.ShouldBindUri(&idRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	id, err := strconv.ParseInt(idRequest.Id, 10, 64)
+	err := service.GetInfoService().DeleteCollege(idRequest.Id)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
-		return
-	}
-	err2 := service.GetInfoService().DeleteCollege(id)
-	if err2 != nil {
-		c.JSON(http.StatusBadRequest, err2)
+		c.JSON(http.StatusBadRequest, err)
 	} else {
 		c.JSON(http.StatusOK, result.Ok())
 	}
@@ -74,7 +67,7 @@ func DeleteCollege(c *gin.Context) {
 //	@Description: 更新学院信息 参数: college (JSON)
 //	@param c
 func UpdateCollege(c *gin.Context) {
-	var college model.College
+	var college types.CollegeReq
 	if err := c.ShouldBindJSON(&college); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
@@ -92,19 +85,14 @@ func UpdateCollege(c *gin.Context) {
 //	@Description: 根据id查询单个学院信息 参数: IdRequest
 //	@param c
 func GetCollege(c *gin.Context) {
-	var idRequest IdRequest
+	var idRequest types.IdRequest
 	if err := c.ShouldBindUri(&idRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	id, err := strconv.ParseInt(idRequest.Id, 10, 64)
+	college, err := service.GetInfoService().GetCollege(idRequest.Id)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
-		return
-	}
-	college, err2 := service.GetInfoService().GetCollege(id)
-	if err2 != nil {
-		c.JSON(http.StatusBadRequest, err2)
+		c.JSON(http.StatusBadRequest, err)
 	} else {
 		c.JSON(http.StatusOK, result.NewOkResult(college))
 	}

@@ -1,12 +1,11 @@
 package handler
 
 import (
-	"net/http"
-	"strconv"
-
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/result"
+	"github.com/Hanabi-wxl/dlu-design-system/pkg/types"
 	service "github.com/Hanabi-wxl/dlu-design-system/service/info"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 // GetTitles
@@ -27,19 +26,14 @@ func GetTitles(c *gin.Context) {
 //	@Description: 根据id查询单个职称信息 参数: IdRequest
 //	@param c
 func GetTitle(c *gin.Context) {
-	var idRequest IdRequest
+	var idRequest types.IdRequest
 	if err := c.ShouldBindUri(&idRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	id, err := strconv.ParseInt(idRequest.Id, 10, 64)
+	title, err := service.GetInfoService().GetTitle(idRequest.Id)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
-		return
-	}
-	title, err2 := service.GetInfoService().GetTitle(id)
-	if err2 != nil {
-		c.JSON(http.StatusBadRequest, err2)
+		c.JSON(http.StatusBadRequest, err)
 	} else {
 		c.JSON(http.StatusOK, result.NewOkResult(title))
 	}
