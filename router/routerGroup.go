@@ -29,6 +29,8 @@ func Init() {
 	RegisterInfoRouter(api)
 	// 注册日志路由
 	RegisterLogRouter(api)
+	// 注册题目路由
+	RegisterSubjectRouter(api)
 	err := engine.Run()
 	if err != nil {
 		logrus.Fatal("服务启动失败")
