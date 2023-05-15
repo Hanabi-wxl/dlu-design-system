@@ -39,6 +39,7 @@ func RegisterUserRouter(engin *gin.RouterGroup) {
 	{
 		infoGroup.GET("/:id/:isStu", handler.GetUserById)
 		infoGroup.GET("/number/:number/:isStu", handler.GetUserByNumber)
+		infoGroup.GET("/numberMajor/:number/:majorId/:isStu", jwt.NeedAuth(consts.SchoolPermission), handler.GetUserByNumberMajor)
 		infoGroup.GET("/major/:majorId/:isStu/:size/:num", handler.GetUsersByMajor)
 		infoGroup.GET("/college/:collegeId/:isStu/:size/:num", handler.GetUsersByCollege)
 	}

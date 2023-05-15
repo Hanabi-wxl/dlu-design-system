@@ -50,3 +50,62 @@ type UpdateUserRequest struct {
 	OfficeID  int64   `json:"office_id"`
 	IsStu     int8    `json:"is_stu" binding:"required"`
 }
+
+// UserResp
+// @Description: 用户请求
+type UserResp struct {
+	ID          int64   `json:"id"`
+	Number      string  `json:"number"`
+	Name        string  `json:"name"`
+	Phone       *string `json:"phone"`
+	Email       *string `json:"email"`
+	CollegeID   int64   `json:"college_id"`
+	CollegeName string  `json:"college_name"`
+	MajorID     int64   `json:"major_id"`
+	MajorName   string  `json:"major_name"`
+	IsStu       int8    `json:"is_stu"`
+	Student
+	Teacher
+}
+type Student struct {
+	ClassID   int64  `json:"class_id"`
+	ClassName string `json:"class_name"`
+}
+type Teacher struct {
+	RoleId     int    `json:"role_id"`
+	TitleID    int64  `json:"title_id"`
+	TitleName  string `json:"title_name"`
+	DegreeID   int64  `json:"degree_id"`
+	DegreeName string `json:"degree_name"`
+	OfficeID   int64  `json:"office_id"`
+	OfficeName string `json:"office_name"`
+}
+
+// RoleReq
+// @Description: 角色
+type RoleReq struct {
+	ID   int64  `json:"id"`
+	Name string `json:"name"`
+}
+
+// RoleIdReq
+// @Description: 角色id
+type RoleIdReq struct {
+	RoleId int64 `uri:"roleId"`
+}
+
+// UserQueryByMajorReq
+// @Description: 根据专业查询用户
+type UserQueryByMajorReq struct {
+	PageRequest
+	MajorId int64 `uri:"majorId"`
+	IsStu   int8  `uri:"isStu"`
+}
+
+// UserQueryByCollegeReq
+// @Description: 根据学院查询用户
+type UserQueryByCollegeReq struct {
+	PageRequest
+	CollegeId int64 `uri:"collegeId"`
+	IsStu     int8  `uri:"isStu"`
+}

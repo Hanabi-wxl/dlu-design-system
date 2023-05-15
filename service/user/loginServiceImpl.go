@@ -27,8 +27,6 @@ func (l LoginServiceImpl) CheckLoginRole(number string) (map[string]bool, *errno
 		wg.Done()
 	}()
 	wg.Wait()
-	//teacher, err = db.Teacher.Where(db.Teacher.Number.Eq(number)).Count()
-	//student, err = db.Student.Where(db.Student.Number.Eq(number)).Count()
 	if err != nil {
 		return nil, errno.NewErrno(errno.DbErrorCode, err.Error())
 	}
@@ -48,7 +46,7 @@ func (l LoginServiceImpl) CheckLoginRole(number string) (map[string]bool, *errno
 func (l LoginServiceImpl) StudentLogin(number, password string) (map[string]interface{}, *errno.Errno) {
 	res := make(map[string]interface{}, 3)
 	if student, err := db.Student.Where(db.Student.Number.Eq(number)).
-		Select(db.Student.ID, db.Student.Number, db.Student.Password).First(); err != nil {
+		Select(db.Student.ID, db.Student.Number, db.Student.Password).Take(); err != nil {
 		return nil, errno.NewErrno(errno.DbErrorCode, errno.NumberNotFoundErrMsg)
 	} else {
 		if checkPassword(password, student.Password) {
@@ -64,7 +62,7 @@ func (l LoginServiceImpl) StudentLogin(number, password string) (map[string]inte
 func (l LoginServiceImpl) TeacherLogin(number, password string) (map[string]interface{}, *errno.Errno) {
 	res := make(map[string]interface{}, 1)
 	if teacher, err := db.Teacher.Where(db.Teacher.Number.Eq(number)).
-		Select(db.Teacher.ID, db.Teacher.Number, db.Teacher.Password, db.Teacher.RoleID).First(); err != nil {
+		Select(db.Teacher.ID, db.Teacher.Number, db.Teacher.Password, db.Teacher.RoleID).Take(); err != nil {
 		return nil, errno.NewErrno(errno.DbErrorCode, errno.NumberNotFoundErrMsg)
 	} else {
 		if checkPassword(password, teacher.Password) {
