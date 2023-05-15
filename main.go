@@ -15,9 +15,9 @@ import (
 )
 
 func main() {
-	//gormGen()
+	gormGen()
 	// 加载依赖
-	initDeps()
+	//initDeps()
 }
 
 func initDeps() {
@@ -118,6 +118,7 @@ func gormGen() {
 	selection := g.GenerateModel("selection", fieldOpts...)
 	student := g.GenerateModel("student", fieldOpts...)
 	subject := g.GenerateModel("subject", fieldOpts...)
+	subjectMajor := g.GenerateModel("subject_major", fieldOpts...)
 	origin := g.GenerateModel("subject_origin", fieldOpts...)
 	progress := g.GenerateModel("subject_progress", fieldOpts...)
 	typee := g.GenerateModel("subject_type", fieldOpts...)
@@ -128,6 +129,6 @@ func gormGen() {
 	title := g.GenerateModel("teacher_title", fieldOpts...)
 
 	g.ApplyBasic(school, college, major, class, appoint, log, message, notice, plan, role, selection, student, subject, origin,
-		progress, typee, task, teacher, degree, office, title)
+		progress, typee, task, teacher, degree, office, title, subjectMajor)
 	g.Execute()
 }

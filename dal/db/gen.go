@@ -30,6 +30,7 @@ var (
 	Selection       *selection
 	Student         *student
 	Subject         *subject
+	SubjectMajor    *subjectMajor
 	SubjectOrigin   *subjectOrigin
 	SubjectProgress *subjectProgress
 	SubjectType     *subjectType
@@ -55,6 +56,7 @@ func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	Selection = &Q.Selection
 	Student = &Q.Student
 	Subject = &Q.Subject
+	SubjectMajor = &Q.SubjectMajor
 	SubjectOrigin = &Q.SubjectOrigin
 	SubjectProgress = &Q.SubjectProgress
 	SubjectType = &Q.SubjectType
@@ -81,6 +83,7 @@ func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 		Selection:       newSelection(db, opts...),
 		Student:         newStudent(db, opts...),
 		Subject:         newSubject(db, opts...),
+		SubjectMajor:    newSubjectMajor(db, opts...),
 		SubjectOrigin:   newSubjectOrigin(db, opts...),
 		SubjectProgress: newSubjectProgress(db, opts...),
 		SubjectType:     newSubjectType(db, opts...),
@@ -108,6 +111,7 @@ type Query struct {
 	Selection       selection
 	Student         student
 	Subject         subject
+	SubjectMajor    subjectMajor
 	SubjectOrigin   subjectOrigin
 	SubjectProgress subjectProgress
 	SubjectType     subjectType
@@ -136,6 +140,7 @@ func (q *Query) clone(db *gorm.DB) *Query {
 		Selection:       q.Selection.clone(db),
 		Student:         q.Student.clone(db),
 		Subject:         q.Subject.clone(db),
+		SubjectMajor:    q.SubjectMajor.clone(db),
 		SubjectOrigin:   q.SubjectOrigin.clone(db),
 		SubjectProgress: q.SubjectProgress.clone(db),
 		SubjectType:     q.SubjectType.clone(db),
@@ -171,6 +176,7 @@ func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 		Selection:       q.Selection.replaceDB(db),
 		Student:         q.Student.replaceDB(db),
 		Subject:         q.Subject.replaceDB(db),
+		SubjectMajor:    q.SubjectMajor.replaceDB(db),
 		SubjectOrigin:   q.SubjectOrigin.replaceDB(db),
 		SubjectProgress: q.SubjectProgress.replaceDB(db),
 		SubjectType:     q.SubjectType.replaceDB(db),
@@ -196,6 +202,7 @@ type queryCtx struct {
 	Selection       ISelectionDo
 	Student         IStudentDo
 	Subject         ISubjectDo
+	SubjectMajor    ISubjectMajorDo
 	SubjectOrigin   ISubjectOriginDo
 	SubjectProgress ISubjectProgressDo
 	SubjectType     ISubjectTypeDo
@@ -221,6 +228,7 @@ func (q *Query) WithContext(ctx context.Context) *queryCtx {
 		Selection:       q.Selection.WithContext(ctx),
 		Student:         q.Student.WithContext(ctx),
 		Subject:         q.Subject.WithContext(ctx),
+		SubjectMajor:    q.SubjectMajor.WithContext(ctx),
 		SubjectOrigin:   q.SubjectOrigin.WithContext(ctx),
 		SubjectProgress: q.SubjectProgress.WithContext(ctx),
 		SubjectType:     q.SubjectType.WithContext(ctx),
