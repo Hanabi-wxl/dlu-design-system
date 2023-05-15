@@ -3,6 +3,7 @@ package handler
 import (
 	"github.com/Hanabi-wxl/dlu-design-system/middleware/jwt"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/result"
+	"github.com/Hanabi-wxl/dlu-design-system/pkg/types"
 	service "github.com/Hanabi-wxl/dlu-design-system/service/user"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
@@ -32,6 +33,20 @@ func GetUserByNumber(c *gin.Context) {
 	}
 	//userService := service.GetUserService()
 	user, err := service.GetUserService().GetUserByNumber(numberRequest.Number, numberRequest.IsStu)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, err)
+	} else {
+		c.JSON(http.StatusOK, result.NewOkResult(user))
+	}
+}
+
+func GetUserByNumberMajor(c *gin.Context) {
+	var numberMajorRequest types.NumberMajorRequest
+	if err := c.ShouldBindUri(&numberMajorRequest); err != nil {
+		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
+		return
+	}
+	user, err := service.GetUserService().GetUserByNumberMajor(numberMajorRequest)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {

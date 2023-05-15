@@ -50,3 +50,33 @@ type UpdateUserRequest struct {
 	OfficeID  int64   `json:"office_id"`
 	IsStu     int8    `json:"is_stu" binding:"required"`
 }
+
+type UserResp struct {
+	ID          int64   `json:"id"`
+	Number      string  `json:"number"`
+	Name        string  `json:"name"`
+	Phone       *string `json:"phone"`
+	Email       *string `json:"email"`
+	CollegeID   int64   `json:"college_id"`
+	CollegeName string  `json:"college_name"`
+	MajorID     int64   `json:"major_id"`
+	MajorName   string  `json:"major_name"`
+	IsStu       int8    `json:"is_stu"`
+	Student
+	Teacher
+}
+
+type Student struct {
+	ClassID   int64  `json:"class_id"`
+	ClassName string `json:"class_name"`
+}
+
+type Teacher struct {
+	RoleId     int    `json:"role_id"`
+	TitleID    int64  `json:"title_id"`
+	TitleName  string `json:"title_name"`
+	DegreeID   int64  `json:"degree_id"`
+	DegreeName string `json:"degree_name"`
+	OfficeID   int64  `json:"office_id"`
+	OfficeName string `json:"office_name"`
+}
