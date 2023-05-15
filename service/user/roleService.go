@@ -3,6 +3,7 @@ package service
 import (
 	"github.com/Hanabi-wxl/dlu-design-system/dal/model"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/errno"
+	"github.com/Hanabi-wxl/dlu-design-system/pkg/types"
 )
 
 type RoleService interface {
@@ -16,7 +17,7 @@ type RoleService interface {
 	// @Description: 更新角色信息
 	// @param role 角色
 	// @return *errno.Errno
-	UpdateRole(role *model.Role) *errno.Errno
+	UpdateRole(role *types.RoleReq) *errno.Errno
 
 	// DeleteRole
 	// @Description: 删除角色
@@ -28,7 +29,12 @@ type RoleService interface {
 	// @Description: 添加角色
 	// @param role 角色
 	// @return *errno.Errno
-	AddRole(role *model.Role) *errno.Errno
+	AddRole(role *types.RoleReq) *errno.Errno
 
+	// GetRole
+	// @Description: 根据id查询角色
+	// @param id 角色id
+	// @return *model.Role
+	// @return *errno.Errno
 	GetRole(id int64) (*model.Role, *errno.Errno)
 }

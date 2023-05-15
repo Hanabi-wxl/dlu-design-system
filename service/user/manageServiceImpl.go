@@ -17,32 +17,18 @@ type ManageServiceImpl struct {
 func (ManageServiceImpl) SaveUser(s *types.AddUserRequest) *errno.Errno {
 	if s.IsStu == 1 {
 		err := db.Student.Save(&model.Student{
-			Number:    s.Number,
-			Name:      s.Name,
-			Password:  encodePassword("Dlu@" + s.Number),
-			Grade:     utils.GetGrade(),
-			Phone:     s.Phone,
-			Email:     s.Email,
-			Gender:    s.Gender,
-			CollegeID: s.CollegeID,
-			MajorID:   s.MajorID,
-			ClassID:   s.ClassID,
+			Number: s.Number, Name: s.Name, Password: encodePassword("Dlu@" + s.Number), Grade: utils.GetGrade(),
+			Phone: s.Phone, Email: s.Email, Gender: s.Gender,
+			CollegeID: s.CollegeID, MajorID: s.MajorID, ClassID: s.ClassID,
 		})
 		if err != nil {
 			return errno.NewErrno(errno.DbErrorCode, err.Error())
 		}
 	} else {
 		err := db.Teacher.Omit(db.Teacher.RoleID).Save(&model.Teacher{
-			Number:    s.Number,
-			Name:      s.Name,
-			Password:  encodePassword("Dlu@" + s.Number),
-			Phone:     s.Phone,
-			Email:     s.Email,
-			CollegeID: s.CollegeID,
-			MajorID:   s.MajorID,
-			TitleID:   s.TitleID,
-			DegreeID:  s.DegreeID,
-			OfficeID:  s.OfficeID,
+			Number: s.Number, Name: s.Name, Password: encodePassword("Dlu@" + s.Number),
+			Phone: s.Phone, Email: s.Email, CollegeID: s.CollegeID, MajorID: s.MajorID,
+			TitleID: s.TitleID, DegreeID: s.DegreeID, OfficeID: s.OfficeID,
 		})
 		if err != nil {
 			return errno.NewErrno(errno.DbErrorCode, err.Error())
@@ -84,11 +70,7 @@ func (ManageServiceImpl) UpdateUser(s *types.UpdateUserRequest) *errno.Errno {
 		ok, err := db.Student.Where(db.Student.ID.Eq(s.ID)).
 			Select(db.Student.Phone, db.Student.Email, db.Student.CollegeID, db.Student.MajorID, db.Student.ClassID).
 			Updates(&model.Student{
-				Phone:     s.Phone,
-				Email:     s.Email,
-				CollegeID: s.CollegeID,
-				MajorID:   s.MajorID,
-				ClassID:   s.ClassID,
+				Phone: s.Phone, Email: s.Email, CollegeID: s.CollegeID, MajorID: s.MajorID, ClassID: s.ClassID,
 			})
 		if err != nil {
 			return errno.NewErrno(errno.DbErrorCode, err.Error())
@@ -100,13 +82,8 @@ func (ManageServiceImpl) UpdateUser(s *types.UpdateUserRequest) *errno.Errno {
 		ok, err := db.Teacher.Where(db.Teacher.ID.Eq(s.ID)).
 			Select(db.Teacher.Phone, db.Teacher.Email, db.Teacher.CollegeID, db.Teacher.MajorID, db.Teacher.TitleID, db.Teacher.OfficeID, db.Teacher.DegreeID).
 			Updates(&model.Teacher{
-				Phone:     s.Phone,
-				Email:     s.Email,
-				CollegeID: s.CollegeID,
-				MajorID:   s.MajorID,
-				TitleID:   s.TitleID,
-				DegreeID:  s.DegreeID,
-				OfficeID:  s.OfficeID,
+				Phone: s.Phone, Email: s.Email, CollegeID: s.CollegeID, MajorID: s.MajorID,
+				TitleID: s.TitleID, DegreeID: s.DegreeID, OfficeID: s.OfficeID,
 			})
 		if err != nil {
 			return errno.NewErrno(errno.DbErrorCode, err.Error())

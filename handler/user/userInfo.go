@@ -1,22 +1,19 @@
 package handler
 
 import (
-	"github.com/Hanabi-wxl/dlu-design-system/middleware/jwt"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/result"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/types"
 	service "github.com/Hanabi-wxl/dlu-design-system/service/user"
 	"github.com/gin-gonic/gin"
-	"github.com/sirupsen/logrus"
 	"net/http"
 )
 
 func GetUserById(c *gin.Context) {
-	var idRoleRequest IdRoleRequest
+	var idRoleRequest types.IdRoleRequest
 	if err := c.ShouldBindUri(&idRoleRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	//userService := service.GetUserService()
 	user, err := service.GetUserService().GetUserById(idRoleRequest.Id, idRoleRequest.IsStu)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
@@ -26,12 +23,11 @@ func GetUserById(c *gin.Context) {
 }
 
 func GetUserByNumber(c *gin.Context) {
-	var numberRequest NumberRequest
+	var numberRequest types.NumberRequest
 	if err := c.ShouldBindUri(&numberRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	//userService := service.GetUserService()
 	user, err := service.GetUserService().GetUserByNumber(numberRequest.Number, numberRequest.IsStu)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
@@ -46,7 +42,7 @@ func GetUserByNumberMajor(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	user, err := service.GetUserService().GetUserByNumberMajor(numberMajorRequest)
+	user, err := service.GetUserService().GetUserByNumberMajor(&numberMajorRequest)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
@@ -55,14 +51,12 @@ func GetUserByNumberMajor(c *gin.Context) {
 }
 
 func GetUsersByMajor(c *gin.Context) {
-	var majorIdRequest MajorIdRequest
+	var majorIdRequest types.UserQueryByMajorReq
 	if err := c.ShouldBindUri(&majorIdRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	//userService := service.GetUserService()
-	users, err := service.GetUserService().GetUsersByMajor(majorIdRequest.MajorId, majorIdRequest.IsStu,
-		majorIdRequest.Size, majorIdRequest.Num)
+	users, err := service.GetUserService().GetUsersByMajor(&majorIdRequest)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
@@ -71,16 +65,12 @@ func GetUsersByMajor(c *gin.Context) {
 }
 
 func GetUsersByCollege(c *gin.Context) {
-	userInfo := jwt.GetUserInfo(c.Request.Context())
-	logrus.Info(userInfo)
-	var collegeIdRequest CollegeIdRequest
+	var collegeIdRequest types.UserQueryByCollegeReq
 	if err := c.ShouldBindUri(&collegeIdRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	//userService := service.GetUserService()
-	users, err := service.GetUserService().GetUsersByCollege(collegeIdRequest.CollegeId, collegeIdRequest.IsStu,
-		collegeIdRequest.Size, collegeIdRequest.Num)
+	users, err := service.GetUserService().GetUsersByCollege(&collegeIdRequest)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)
 	} else {
