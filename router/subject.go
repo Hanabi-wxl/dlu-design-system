@@ -23,4 +23,9 @@ func RegisterSubjectRouter(engin *gin.RouterGroup) {
 		approve.POST("/college", handler.CollegeApproveSubject)
 		approve.POST("/appoint", handler.AppointSubject)
 	}
+	appoint := subject.Group("/appoint")
+	{
+		appoint.GET(":number", handler.GetAppointList)
+		appoint.POST("", handler.SetAppoint)
+	}
 }

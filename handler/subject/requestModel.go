@@ -1,13 +1,17 @@
 package handler
 
 type Year struct {
-	year    string `uri:"year"`
+	year string `uri:"year"`
 }
 
 type MajorIds struct {
-	majorId    string 
+	majorId string
 }
 
 type CollegeIds struct {
-	collegeId    string 
+	collegeId string
+}
+
+type Number struct {
+	num string `uri:"num"`
 }
