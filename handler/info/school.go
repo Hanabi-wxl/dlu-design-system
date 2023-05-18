@@ -3,10 +3,10 @@ package handler
 import (
 	"github.com/Hanabi-wxl/dlu-design-system/dal/model"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/result"
+	"github.com/Hanabi-wxl/dlu-design-system/pkg/types"
 	service "github.com/Hanabi-wxl/dlu-design-system/service/info"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"strconv"
 )
 
 // GetSchoolList
@@ -14,7 +14,7 @@ import (
 //	@Description: 分页查询学校 参数: PageRequest
 //	@param c
 func GetSchoolList(c *gin.Context) {
-	var page PageRequest
+	var page types.PageRequest
 	if err := c.ShouldBindUri(&page); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
@@ -50,19 +50,14 @@ func AddSchool(c *gin.Context) {
 //	@Description: 删除学校信息 参数: IdRequest
 //	@param c
 func DeleteSchool(c *gin.Context) {
-	var idRequest IdRequest
+	var idRequest types.IdRequest
 	if err := c.ShouldBindUri(&idRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	id, err := strconv.ParseInt(idRequest.Id, 10, 64)
+	err := service.GetInfoService().DeleteSchool(idRequest.Id)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
-		return
-	}
-	err2 := service.GetInfoService().DeleteSchool(id)
-	if err2 != nil {
-		c.JSON(http.StatusBadRequest, err2)
+		c.JSON(http.StatusBadRequest, err)
 	} else {
 		c.JSON(http.StatusOK, result.Ok())
 	}
@@ -91,19 +86,14 @@ func UpdateSchool(c *gin.Context) {
 //	@Description: 根据id查询单个学校信息 参数: IdRequest
 //	@param c
 func GetSchool(c *gin.Context) {
-	var idRequest IdRequest
+	var idRequest types.IdRequest
 	if err := c.ShouldBindUri(&idRequest); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	id, err := strconv.ParseInt(idRequest.Id, 10, 64)
+	school, err := service.GetInfoService().GetSchool(idRequest.Id)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
-		return
-	}
-	school, err2 := service.GetInfoService().GetSchool(id)
-	if err2 != nil {
-		c.JSON(http.StatusBadRequest, err2)
+		c.JSON(http.StatusBadRequest, err)
 	} else {
 		c.JSON(http.StatusOK, result.NewOkResult(school))
 	}

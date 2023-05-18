@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"github.com/Hanabi-wxl/dlu-design-system/dal/model"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/result"
+	"github.com/Hanabi-wxl/dlu-design-system/pkg/types"
 	logService "github.com/Hanabi-wxl/dlu-design-system/service/log"
 	userService "github.com/Hanabi-wxl/dlu-design-system/service/user"
 	"github.com/gin-gonic/gin"
@@ -10,7 +10,6 @@ import (
 )
 
 func GetRoleList(c *gin.Context) {
-	//usersvs := userService.GetUserService()
 	if roleList, errno := userService.GetUserService().GetRoleList(); errno != nil {
 		c.JSON(http.StatusBadRequest, errno)
 		return
@@ -21,12 +20,11 @@ func GetRoleList(c *gin.Context) {
 }
 
 func GetRole(c *gin.Context) {
-	var roleIdReq RoleIdRequest
+	var roleIdReq types.RoleIdRequest
 	if err := c.ShouldBindUri(&roleIdReq); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	//usersvs := userService.GetUserService()
 	if role, errno := userService.GetUserService().GetRole(roleIdReq.RoleId); errno != nil {
 		c.JSON(http.StatusBadRequest, errno)
 	} else {
@@ -35,12 +33,11 @@ func GetRole(c *gin.Context) {
 }
 
 func UpdateRole(c *gin.Context) {
-	var role model.Role
+	var role types.RoleReq
 	if err := c.ShouldBindJSON(&role); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
-	//usersvs := userService.GetUserService()
 	if errno := userService.GetUserService().UpdateRole(&role); errno != nil {
 		c.JSON(http.StatusBadRequest, errno)
 	} else {
@@ -49,7 +46,7 @@ func UpdateRole(c *gin.Context) {
 }
 
 func DeleteRole(c *gin.Context) {
-	var roleIdReq RoleIdRequest
+	var roleIdReq types.RoleIdReq
 	if err := c.ShouldBindUri(&roleIdReq); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
@@ -63,7 +60,7 @@ func DeleteRole(c *gin.Context) {
 }
 
 func AddRole(c *gin.Context) {
-	var role model.Role
+	var role types.RoleReq
 	if err := c.ShouldBindJSON(&role); err != nil {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return

@@ -29,19 +29,19 @@ func RegisterInfoRouter(engin *gin.RouterGroup) {
 		info.GET("/major/:id", handler.GetMajor)
 		info.GET("/majors/college/:collegeId", handler.GetMajorListByCollegeId)
 
-		info.GET("/classes/:size/:num", handler.GetClassList)
+		info.GET("/classes/:majorId/:year/:size/:num", handler.GetClassList)
 		info.POST("/class", jwt.NeedAuth(consts.SchoolPermission), handler.AddClass)
 		info.DELETE("/class/:id", jwt.NeedAuth(consts.SchoolPermission), handler.DeleteClass)
 		info.PUT("/class", jwt.NeedAuth(consts.SchoolPermission), handler.UpdateClass)
 		info.GET("/class/:id", handler.GetClass)
 
-		info.GET("/titles", handler.GetTitles)
-		info.GET("/title/:id", handler.GetTitle)
+		info.GET("/titles", jwt.Auth(), handler.GetTitles)
+		info.GET("/title/:id", jwt.Auth(), handler.GetTitle)
 
-		info.GET("/degrees", handler.GetDegrees)
-		info.GET("/degree/:id", handler.GetDegree)
+		info.GET("/degrees", jwt.Auth(), handler.GetDegrees)
+		info.GET("/degree/:id", jwt.Auth(), handler.GetDegree)
 
-		info.GET("/offices", handler.GetOffices)
-		info.GET("/office/:id", handler.GetOffice)
+		info.GET("/offices", jwt.Auth(), handler.GetOffices)
+		info.GET("/office/:id", jwt.Auth(), handler.GetOffice)
 	}
 }

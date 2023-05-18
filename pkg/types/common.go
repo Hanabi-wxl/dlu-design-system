@@ -33,6 +33,14 @@ type NumberRequest struct {
 	IsStu  int8   `uri:"isStu" binding:"required,max=2,min=1"`
 }
 
+// NumberMajorRequest
+// @Description: 账号专业角色
+type NumberMajorRequest struct {
+	Number  string `uri:"number" binding:"required"`
+	MajorId int64  `uri:"majorId" binding:"required"`
+	IsStu   int8   `uri:"isStu" binding:"required,max=2,min=1"`
+}
+
 // PageResp
 // @Description: 分页响应
 type PageResp struct {
@@ -41,6 +49,8 @@ type PageResp struct {
 	Array     any   `json:"array"`
 }
 
-type CollegeId struct {
-	CollegeId string `uri:"collegeId" binding:"required"`
+// CollegeIdReq
+// @Description: 学院id
+type CollegeIdReq struct {
+	CollegeId int64
 }
