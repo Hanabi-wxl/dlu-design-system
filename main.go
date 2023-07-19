@@ -15,7 +15,7 @@ import (
 )
 
 func main() {
-	//gormGen()
+	gormGen()
 	// 加载依赖
 	initDeps()
 }
