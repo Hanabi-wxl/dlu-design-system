@@ -26,9 +26,15 @@ func (ManageServiceImpl) SaveUser(s *types.AddUserRequest) *errno.Errno {
 		}
 	} else {
 		err := db.Teacher.Omit(db.Teacher.RoleID).Save(&model.Teacher{
-			Number: s.Number, Name: s.Name, Password: encodePassword("Dlu@" + s.Number),
-			Phone: s.Phone, Email: s.Email, CollegeID: s.CollegeID, MajorID: s.MajorID,
-			TitleID: s.TitleID, DegreeID: s.DegreeID, OfficeID: s.OfficeID,
+			Number: s.Number,
+			Name:   s.Name, Password: encodePassword("Dlu@" + s.Number),
+			Phone:     s.Phone,
+			Email:     s.Email,
+			CollegeID: s.CollegeID,
+			MajorID:   s.MajorID,
+			TitleID:   s.TitleID,
+			DegreeID:  s.DegreeID,
+			OfficeID:  s.OfficeID,
 		})
 		if err != nil {
 			return errno.NewErrno(errno.DbErrorCode, err.Error())

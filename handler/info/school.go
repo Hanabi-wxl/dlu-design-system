@@ -55,6 +55,15 @@ func DeleteSchool(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, result.NewFailedResult(err.Error()))
 		return
 	}
+	resp, errno := service.GetInfoService().GetSchool(idRequest.Id)
+	if errno != nil {
+		c.JSON(http.StatusBadRequest, errno)
+		return
+	}
+	if resp == nil {
+		// 学校不存在
+		c.JSON(http.StatusBadRequest, result.Failed())
+	}
 	err := service.GetInfoService().DeleteSchool(idRequest.Id)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, err)

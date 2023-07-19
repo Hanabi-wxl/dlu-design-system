@@ -6,6 +6,7 @@ import (
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/errno"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/types"
 	"github.com/sirupsen/logrus"
+	"gorm.io/gorm"
 )
 
 type CollegeServiceImpl struct {
@@ -31,19 +32,27 @@ func (c CollegeServiceImpl) AddCollege(college *types.CollegeReq) *errno.Errno {
 }
 
 func (c CollegeServiceImpl) DeleteCollege(id int64) *errno.Errno {
-	_, err := db.College.Where(db.College.ID.Eq(id)).Delete()
+	deletes, err := db.College.Where(db.College.ID.Eq(id)).Delete()
 	if err != nil {
 		logrus.Error(err)
 		return errno.NewErrno(errno.DbErrorCode, err.Error())
+	}
+	if deletes.RowsAffected == 0 {
+		logrus.Error(err)
+		return errno.NewErrno(errno.DbErrorCode, gorm.ErrRecordNotFound.Error())
 	}
 	return nil
 }
 
 func (c CollegeServiceImpl) UpdateCollege(college *types.CollegeReq) *errno.Errno {
-	err := db.College.Save(&model.College{Name: college.Name})
+	updates, err := db.College.Updates(college)
 	if err != nil {
 		logrus.Error(err)
 		return errno.NewErrno(errno.DbErrorCode, err.Error())
+	}
+	if updates.RowsAffected == 0 {
+		logrus.Error(err)
+		return errno.NewErrno(errno.DbErrorCode, gorm.ErrRecordNotFound.Error())
 	}
 	return nil
 }

@@ -6,6 +6,7 @@ import (
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/errno"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/types"
 	"github.com/sirupsen/logrus"
+	"gorm.io/gorm"
 )
 
 type MajorServiceImpl struct {
@@ -31,19 +32,27 @@ func (c MajorServiceImpl) AddMajor(major *types.MajorReq) *errno.Errno {
 }
 
 func (c MajorServiceImpl) DeleteMajor(id int64) *errno.Errno {
-	_, err := db.Major.Where(db.Major.ID.Eq(id)).Delete()
+	deletes, err := db.Major.Where(db.Major.ID.Eq(id)).Delete()
 	if err != nil {
 		logrus.Error(err)
 		return errno.NewErrno(errno.DbErrorCode, err.Error())
+	}
+	if deletes.RowsAffected == 0 {
+		logrus.Error(err)
+		return errno.NewErrno(errno.DbErrorCode, gorm.ErrRecordNotFound.Error())
 	}
 	return nil
 }
 
 func (c MajorServiceImpl) UpdateMajor(major *types.MajorReq) *errno.Errno {
-	err := db.Major.Save(&model.Major{Name: major.Name})
+	updates, err := db.Major.Updates(major)
 	if err != nil {
 		logrus.Error(err)
 		return errno.NewErrno(errno.DbErrorCode, err.Error())
+	}
+	if updates.RowsAffected == 0 {
+		logrus.Error(err)
+		return errno.NewErrno(errno.DbErrorCode, gorm.ErrRecordNotFound.Error())
 	}
 	return nil
 }

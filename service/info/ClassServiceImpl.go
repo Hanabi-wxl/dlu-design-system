@@ -7,6 +7,7 @@ import (
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/types"
 	"github.com/Hanabi-wxl/dlu-design-system/pkg/utils"
 	"github.com/sirupsen/logrus"
+	"gorm.io/gorm"
 )
 
 type ClassServiceImpl struct {
@@ -33,19 +34,27 @@ func (c ClassServiceImpl) AddClass(class *types.ClassReq) *errno.Errno {
 }
 
 func (c ClassServiceImpl) DeleteClass(id int64) *errno.Errno {
-	_, err := db.Class.Where(db.Class.ID.Eq(id)).Delete()
+	deletes, err := db.Class.Where(db.Class.ID.Eq(id)).Delete()
 	if err != nil {
 		logrus.Error(err)
 		return errno.NewErrno(errno.DbErrorCode, err.Error())
+	}
+	if deletes.RowsAffected == 0 {
+		logrus.Error(err)
+		return errno.NewErrno(errno.DbErrorCode, gorm.ErrRecordNotFound.Error())
 	}
 	return nil
 }
 
 func (c ClassServiceImpl) UpdateClass(class *types.ClassReq) *errno.Errno {
-	err := db.Class.Where(db.Class.ID.Eq(class.ID)).Save(&model.Class{Name: class.Name, MajorID: class.MajorId, Grade: utils.GetGradeByYear(class.Grade)})
+	updates, err := db.Class.Where(db.Class.ID.Eq(class.ID)).Updates(&model.Class{Name: class.Name, MajorID: class.MajorId, Grade: utils.GetGradeByYear(class.Grade)})
 	if err != nil {
 		logrus.Error(err)
 		return errno.NewErrno(errno.DbErrorCode, err.Error())
+	}
+	if updates.RowsAffected == 0 {
+		logrus.Error(err)
+		return errno.NewErrno(errno.DbErrorCode, gorm.ErrRecordNotFound.Error())
 	}
 	return nil
 }

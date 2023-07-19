@@ -2,6 +2,8 @@ package router
 
 import (
 	handler "github.com/Hanabi-wxl/dlu-design-system/handler/subject"
+	"github.com/Hanabi-wxl/dlu-design-system/middleware/jwt"
+	"github.com/Hanabi-wxl/dlu-design-system/pkg/consts"
 	"github.com/gin-gonic/gin"
 )
 
@@ -9,19 +11,19 @@ func RegisterSubjectRouter(engin *gin.RouterGroup) {
 	subject := engin.Group("/subject")
 	apply := subject.Group("/apply")
 	{
-		apply.POST("/", handler.AddSubject)
-		apply.PUT("/", handler.UpdateSubject)
-		apply.DELETE("/:subjectId", handler.DeleteSubject)
+		apply.POST("/", jwt.Auth(), handler.AddSubject)
+		apply.PUT("/", jwt.Auth(), handler.UpdateSubject)
+		apply.DELETE("/:subjectId", jwt.Auth(), handler.DeleteSubject)
 		apply.GET("/origins", handler.GetOrigins)
 		apply.GET("/types", handler.GetTypes)
-		apply.GET("/:year", handler.GetSelfSubjectsByYear)
+		apply.GET("/:year", jwt.Auth(), handler.GetSelfSubjectsByYear)
 	}
 	approve := subject.Group("/approve")
 	{
-		approve.GET("/approvelist", handler.GetApproveList)
-		approve.POST("/major", handler.MajorApproveSubject)
-		approve.POST("/college", handler.CollegeApproveSubject)
-		approve.POST("/appoint", handler.AppointSubject)
+		approve.POST("/approvelist", jwt.NeedAuth(consts.MajorPermission), handler.GetApproveList)
+		approve.POST("/major", jwt.NeedAuth(consts.MajorPermission), handler.MajorApproveSubject)
+		approve.POST("/college", jwt.NeedAuth(consts.CollegePermission), handler.CollegeApproveSubject)
+		approve.POST("/appoint", jwt.NeedAuth(consts.MajorPermission), handler.AppointSubject)
 	}
 	appoint := subject.Group("/appoint")
 	{

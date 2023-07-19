@@ -40,6 +40,8 @@ func NewMyWriter() *MyWriter {
 	return &MyWriter{mLog: logg}
 }
 
+var DB *gorm.DB
+
 func Init() {
 	db, err := gorm.Open(mysql.Open(config.Conf.Mysql.DSN), &gorm.Config{
 		Logger: logger.New(
@@ -65,5 +67,6 @@ func Init() {
 	sqlDB.SetMaxOpenConns(200)
 	// SetConnMaxLifetime 设置了连接可复用的最大时间。
 	sqlDB.SetConnMaxLifetime(time.Hour)
+	DB = db
 	gen.SetDefault(db)
 }

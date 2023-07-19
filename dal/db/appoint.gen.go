@@ -33,6 +33,8 @@ func newAppoint(db *gorm.DB, opts ...gen.DOOption) appoint {
 	_appoint.SubjectID = field.NewInt64(tableName, "subject_id")
 	_appoint.CreatedAt = field.NewTime(tableName, "created_at")
 	_appoint.IsDelete = field.NewField(tableName, "is_delete")
+	_appoint.ApproveID = field.NewInt64(tableName, "approve_id")
+	_appoint.ApproveTime = field.NewTime(tableName, "approve_time")
 
 	_appoint.fillFieldMap()
 
@@ -42,13 +44,15 @@ func newAppoint(db *gorm.DB, opts ...gen.DOOption) appoint {
 type appoint struct {
 	appointDo
 
-	ALL       field.Asterisk
-	ID        field.Int64 // id
-	SendID    field.Int64 // 发放权限的教师id
-	ReceiveID field.Int64 // 接收权限的教师id
-	SubjectID field.Int64 // 题目id
-	CreatedAt field.Time  // 委任时间
-	IsDelete  field.Field // 存在标志
+	ALL         field.Asterisk
+	ID          field.Int64 // id
+	SendID      field.Int64 // 发放权限的教师id
+	ReceiveID   field.Int64 // 接收权限的教师id
+	SubjectID   field.Int64 // 题目id
+	CreatedAt   field.Time  // 委任时间
+	IsDelete    field.Field // 存在标志
+	ApproveID   field.Int64
+	ApproveTime field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -71,6 +75,8 @@ func (a *appoint) updateTableName(table string) *appoint {
 	a.SubjectID = field.NewInt64(table, "subject_id")
 	a.CreatedAt = field.NewTime(table, "created_at")
 	a.IsDelete = field.NewField(table, "is_delete")
+	a.ApproveID = field.NewInt64(table, "approve_id")
+	a.ApproveTime = field.NewTime(table, "approve_time")
 
 	a.fillFieldMap()
 
@@ -87,13 +93,15 @@ func (a *appoint) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (a *appoint) fillFieldMap() {
-	a.fieldMap = make(map[string]field.Expr, 6)
+	a.fieldMap = make(map[string]field.Expr, 8)
 	a.fieldMap["id"] = a.ID
 	a.fieldMap["send_id"] = a.SendID
 	a.fieldMap["receive_id"] = a.ReceiveID
 	a.fieldMap["subject_id"] = a.SubjectID
 	a.fieldMap["created_at"] = a.CreatedAt
 	a.fieldMap["is_delete"] = a.IsDelete
+	a.fieldMap["approve_id"] = a.ApproveID
+	a.fieldMap["approve_time"] = a.ApproveTime
 }
 
 func (a appoint) clone(db *gorm.DB) appoint {

@@ -54,3 +54,22 @@ type PageResp struct {
 type CollegeIdReq struct {
 	CollegeId int64
 }
+type MajorIdsRequest struct {
+	MajorIds []int64 `uri:"majorId"`
+}
+
+type CollegeIdsRequest struct {
+	CollegeIds []int64 `uri:"collegeId"`
+}
+type SubjectIdRequest struct {
+	SubjectId int64 `uri:"subjectId"`
+}
+type SubjectIdsRequest struct {
+	SubjectIds []int64 `json:"subjectIds"`
+}
+type AppointIdsRequest struct {
+	Appointids []int64 `json:"subjectIds"`
+}
+type Year struct {
+	Year string `uri:"year"`
+}
